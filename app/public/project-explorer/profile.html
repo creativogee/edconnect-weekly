@@ -8,9 +8,13 @@
   <title>Profile</title>
 </head>
 <body>
-  <header class="jumbotron">
-    <h1>Project Explorer</h1>
-    <h2>One Stop Database for Academic Projects</h2>
+  <header>
+    <div class="jumbotron">
+      <h1>Welcome to Project Explorer</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit at architecto perferendis consectetur amet id.</p>
+      <a class="btn btn-primary" href="#">Get Started</a>
+      <a class="btn btn-secondary" href="#">Login</a>
+    </div>
   </header>
   <nav class="navbar-brand p-2">
       <a href="index.html" class="btn btn-secondary">Home</a>
@@ -20,21 +24,22 @@
       <a href="createproject.html" class="btn btn-secondary">Submit</a>
   </nav>
   <main class="p-5">
-
-    <section class="container">
+<divclass="container">
+  <section>
     <h2>John Doe</h2>
     <p>john.doe@gmail.com</p>
-    <ul class="d-flex list-unstyled bg-light pt-2 pb-2">
+    <ul class="row list-unstyled bg-light pt-2 pb-2">
       <li class="col-4">Program: Computer science</li>
       <li class="col-4">Matric: 00/0000</li>
       <li class="col-4">Graduation Year: 2019</li>
     </ul>
-    </section>
+  </section>
+</div>
 
     <section>
       <h2 class="pb-4 border-bottom container w-75 mt-5">Update Profile</h2>
       <div class="mx-auto w-50">
-      <form action="" name="updateProfile" class="form-group d-flex flex-wrap">
+      <form action="" name="updateProfile" class="form-group form-row">
         <div class="col-6">
           <label class="form-label" for="firstName">First Name: </label>
           <input class="form-control" type="text" name="firstName">

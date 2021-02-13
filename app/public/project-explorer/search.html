@@ -8,9 +8,13 @@
   <title>Search</title>
 </head>
 <body>
-  <header class="jumbotron">
-    <h1>Project Explorer</h1>
-    <h2>One Stop Database for Academic Projects</h2>
+  <header>
+    <div class="jumbotron">
+      <h1>Welcome to Project Explorer</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit at architecto perferendis consectetur amet id.</p>
+      <a class="btn btn-primary" href="#">Get Started</a>
+      <a class="btn btn-secondary" href="#">Login</a>
+    </div>
   </header>
   <nav class="navbar-brand p-2">
       <a href="index.html" class="btn btn-secondary">Home</a>
@@ -24,15 +28,15 @@
       <h3>Search Project By</h3>
       <div class="bg-light p-3">
         <form action="" name="searchForm" class="form-group d-flex justify-content-between align-items-center m-0">
-          <input class="w-75 form-control" type="text" name="searchTerm" placeholder="Project Name, Authors, Abstract, Tags">
+          <input class="form-control form-control-lg col-8" type="text" name="searchTerm" placeholder="Project Name, Authors, Abstract, Tags">
           <label class="form-label mt-2" for="searchType" >Search By</label>
-          <select class="form-control col-1" name="searchType" id="">
+          <select class="form-control form-control-lg col-2" name="searchType" id="">
             <option value="Name">Name</option>
             <option value="Abstract">Abstract</option>
             <option value="Authors">Authors</option>
             <option value="Tags">Tags</option>
           </select>
-          <input class="form-control btn btn-primary col-1" type="submit" value="Search">
+          <input class=" btn btn-lg btn-primary" type="submit" value="Search">
         </form>
       </div>
     </section>

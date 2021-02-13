@@ -8,9 +8,13 @@
   <title>Edit project</title>
 </head>
 <body>
-  <header class="jumbotron">
-    <h1>Project Explorer</h1>
-    <h2>One Stop Database for Academic Projects</h2>
+  <header>
+    <div class="jumbotron">
+      <h1>Welcome to Project Explorer</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit at architecto perferendis consectetur amet id.</p>
+      <a class="btn btn-primary" href="#">Get Started</a>
+      <a class="btn btn-secondary" href="#">Login</a>
+    </div>
   </header>
   <nav class="navbar-brand p-2">
       <a href="index.html" class="btn btn-secondary">Home</a>
@@ -18,40 +22,50 @@
       <a href="login.html" class="btn btn-secondary">Login</a>
       <a href="register.html" class="btn btn-secondary">Register</a>
       <a href="createproject.html" class="btn btn-secondary">Submit</a>
+      <a href="viewproject.html" class="btn btn-secondary">View</a>
   </nav>
   <main>
-    <section class="container">
-      <h1>Project 1</h1>
-      <ul class="d-flex list-unstyled bg-light pt-3 pb-3 justify-content-around">
-        <li class="col-2">Created by: <br> Jane Doe</li>
-        <li class="col-2">Date created: <br> 00/00/0000</li>
-        <li class="col-2">Last updated: <br> 01/10/0000</li>
-      </ul>
-    </section>
+    <div class="container mt-5">
+      <section>
+        <h1>Project 1</h1>
+        <ul class="list-unstyled row bg-light p-3">
+          <li class="col-3">Created by: <br> Jane Doe</li>
+          <li class="col-3">Date created: <br> 00/00/0000</li>
+          <li class="col-3">Last updated: <br> 01/10/0000</li>
+          <li class="col-3 d-flex justify-content-end"><a href="#" class="btn btn-primary ">View project</a></li>
+        </ul>
+        
+      </section>
+    </div>
     
-    <section class="mx-auto col-4 pt-5">
-      <h1>Edit Project</h1>
-      <form action="" name="editProject" class="form-group d-flex flex-column">
-        <label class="form-label mt-3" for="name">Project Name: </label>
-        <input class="form-control" type="text" name="name">
-
-        <label class="form-label mt-3" for="a">Project Abstract</label>
-        <textarea class="form-control" name="abstract" id="" cols="30" rows="10"></textarea>
-
-        <label class="form-label mt-3" for="authors">Authors: </label>
-        <input class="form-control" type="text" name="authors">
-
-        <label class="form-label mt-3" for="tags">Tag(s)</label>
-        <input class="form-control" type="text" name="tags">
-        <label class="form-label  mt-3" for="projectFile">Upload Files:</label>
-        <div class="custom-file">
-          <label class="custom-file-label" for="projectFile">Upload Files...</label>
-          <input class="custom-file-input" type="file" name="projectFile">
+    <section class="mx-auto w-50 pt-5">
+      <form action="" name="editProject" class="form-group row">
+        <div class="col-6">
+          <h4>Edit Project</h4>
+          <label class="form-label mt-3" for="name">Project Name: </label>
+          <input class="form-control" type="text" name="name">
+          
+          <label class="form-label mt-3" for="a">Project Abstract</label>
+          <textarea class="form-control" name="abstract" id="" cols="30" rows="10"></textarea>
+          
+          <label class="form-label mt-3" for="authors">Authors: </label>
+          <input class="form-control" type="text" name="authors">
+          
+          <label class="form-label mt-3" for="tags">Tag(s)</label>
+          <input class="form-control" type="text" name="tags">
+        </div>
+        
+        <div class="col-6">
+          <h4>Manage Project Files</h4>
+          <label class="form-label  mt-3" for="projectFile">Upload Files:</label>
+          <div class="custom-file">
+            <label class="custom-file-label" for="projectFile">Upload Files...</label>
+            <input class="custom-file-input" type="file" name="projectFile">
+          </div>
         </div>
           
         <input class="btn btn-primary w-25 mt-3" type="submit">
       </form>
-      
     </section>
 
   </main>
