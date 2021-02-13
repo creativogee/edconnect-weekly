@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <title>Search</title>
+</head>
+<body>
+  <header class="jumbotron">
+    <h1>Project Explorer</h1>
+    <h2>One Stop Database for Academic Projects</h2>
+  </header>
+  <nav class="navbar-brand p-2">
+      <a href="index.html" class="btn btn-secondary">Home</a>
+      <a href="search.html" class="btn btn-secondary">Projects</a>
+      <a href="login.html" class="btn btn-secondary">Login</a>
+      <a href="register.html" class="btn btn-secondary">Register</a>
+      <a href="createproject.html" class="btn btn-secondary">Submit</a>
+  </nav>
+  <main class="mx-auto col-10">
+    <section class="mt-5">
+      <h3>Search Project By</h3>
+      <div class="bg-light p-3">
+        <form action="" name="searchForm" class="form-group d-flex justify-content-between align-items-center m-0">
+          <input class="w-75 form-control" type="text" name="searchTerm" placeholder="Project Name, Authors, Abstract, Tags">
+          <label class="form-label mt-2" for="searchType" >Search By</label>
+          <select class="form-control col-1" name="searchType" id="">
+            <option value="Name">Name</option>
+            <option value="Abstract">Abstract</option>
+            <option value="Authors">Authors</option>
+            <option value="Tags">Tags</option>
+          </select>
+          <input class="form-control btn btn-primary col-1" type="submit" value="Search">
+        </form>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h4>Search Result</h3>
+      <div class="card p-3 col-3 mt-3 mb-3">
+        <h4 class="card-title">Project 1</h4>
+        <ul class="list-unstyled">
+          <li>Name: John Doe</li>
+          <li>Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, nostrum. </li>
+          <li>Program: Computer Science</li>
+          <li>Authors: John Doe, Jane Doe </li>
+          <li>Tags: #Binary #BillGates</li>
+          <li>Year: 2015</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

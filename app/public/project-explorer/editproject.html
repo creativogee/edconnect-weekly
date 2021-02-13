@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <title>Edit project</title>
+</head>
+<body>
+  <header class="jumbotron">
+    <h1>Project Explorer</h1>
+    <h2>One Stop Database for Academic Projects</h2>
+  </header>
+  <nav class="navbar-brand p-2">
+      <a href="index.html" class="btn btn-secondary">Home</a>
+      <a href="search.html" class="btn btn-secondary">Projects</a>
+      <a href="login.html" class="btn btn-secondary">Login</a>
+      <a href="register.html" class="btn btn-secondary">Register</a>
+      <a href="createproject.html" class="btn btn-secondary">Submit</a>
+  </nav>
+  <main>
+    <section class="container">
+      <h1>Project 1</h1>
+      <ul class="d-flex list-unstyled bg-light pt-3 pb-3 justify-content-around">
+        <li class="col-2">Created by: <br> Jane Doe</li>
+        <li class="col-2">Date created: <br> 00/00/0000</li>
+        <li class="col-2">Last updated: <br> 01/10/0000</li>
+      </ul>
+    </section>
+    
+    <section class="mx-auto col-4 pt-5">
+      <h1>Edit Project</h1>
+      <form action="" name="editProject" class="form-group d-flex flex-column">
+        <label class="form-label mt-3" for="name">Project Name: </label>
+        <input class="form-control" type="text" name="name">
+
+        <label class="form-label mt-3" for="a">Project Abstract</label>
+        <textarea class="form-control" name="abstract" id="" cols="30" rows="10"></textarea>
+
+        <label class="form-label mt-3" for="authors">Authors: </label>
+        <input class="form-control" type="text" name="authors">
+
+        <label class="form-label mt-3" for="tags">Tag(s)</label>
+        <input class="form-control" type="text" name="tags">
+        <label class="form-label  mt-3" for="projectFile">Upload Files:</label>
+        <div class="custom-file">
+          <label class="custom-file-label" for="projectFile">Upload Files...</label>
+          <input class="custom-file-input" type="file" name="projectFile">
+        </div>
+          
+        <input class="btn btn-primary w-25 mt-3" type="submit">
+      </form>
+      
+    </section>
+
+  </main>
+
+</body>
+</html>
