@@ -10,75 +10,69 @@
     
   </style>
 </head>
-<body>
-  <header>
-    <div class="jumbotron">
+<body class="d-flex flex-column">
+  <header class="d-flex flex-column order-2">
+    <div class="jumbotron order-2 mr-5 ml-5 mt-3">
       <h1>Welcome to Project Explorer</h1>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit at architecto perferendis consectetur amet id.</p>
-      <a class="btn btn-primary" href="#">Get Started</a>
-      <a class="btn btn-secondary" href="#">Login</a>
+      <a class="btn btn-primary" href="register.html">Get Started</a>
+      <a class="btn btn-secondary" href="login.html">Login</a>
     </div>
   </header>
-  <nav class="navbar-brand p-2 d-flex">
-      <a href="index.html" class="btn btn-secondary">Home</a>
-      <a href="search.html" class="btn btn-secondary">Projects</a>
-      <a href="login.html" class="btn btn-secondary">Login</a>
-      <a href="register.html" class="btn btn-secondary">Register</a>
-      <a href="createproject.html" class="btn btn-secondary">Submit</a>
-  <form action="">
-        <input type="text" value="Search Projects" placeholder="Search Projects">
-        <input type="button" value="Search">
-        <input type="submit">
-      </form>
+  <nav class="navbar p-2 d-flex order-1 bg-primary justify-content-between">
+    <form action="" class="form-inline col-5 d-flex justify-content-between">
+      <h4 class="text-light">Project Explorer</h4>
+      <input type="text" value="Search Projects" placeholder="Search Projects" class="form-control">
+      <input type="button" value="Search" class="btn  btn-outline-light" >
+      <input type="submit" value="Submit" class="btn text-light">
+    </form>
+    <div>
+      <a href="register.html" class="btn text-light">Sign up</a>
+      <a href="login.html" class="btn text-light">Login</a>
+    </div>
   </nav>
-  <main class="p-2">
-    <p>This application allows you to explore various academic projects. You can search, upload and browse projects</p>
-    <h3>Project List</h3>
-<div class="d-flex flex-row justify-content-between">
-  <div class="card col-2 mr-2">
+  <main class="p-2 order-3">
+<div class="d-flex flex-row justify-content-between mr-5 ml-5">
+  <div class="card col-2">
     <section class="card-body">
-      <h3 class="card-title">Project 1</h3>
+      <h3 class="card-title text-primary">Project Title</h3>
       <ul class="list-unstyled">
-        <li>Name: Project one</li>
-        <li class="card-text">Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, nam.</li>
-        <li>Program: Computer science</li>
-        <li>Year: 2021</li>
+        <li class="card-subtitle">Author 1, Author 2</li>
+        <li class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id exercitationem eum enim.</li>
+        <li>#ElonMusk #BillGates</li>
       </ul>
     </section>
   </div>
   
-  <div class="card col-2 mr-2">
+  <div class="card col-2">
     <section class="card-body">
-      <h3 class="card-title">Project 1</h3>
+      <h3 class="card-title text-primary">Project TItle</h3>
       <ul class="list-unstyled">
-        <li>Name: Project one</li>
-        <li class="card-text">Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, nam.</li>
-        <li>Program: Computer science</li>
-        <li>Year: 2021</li>
+        <li>Author 1, Author 2</li>
+        <li class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id exercitationem eum enim.</li>
+        <li>#ElonMusk #BillGates</li>
       </ul>
     </section>
   </div>
 
-  <div class="card col-2 mr-2">
+  <div class="card col-2">
     <section class="card-body">
-      <h3 class="card-title">Project 2</h3>
+      <h3 class="card-title text-primary">Project Title</h3>
       <ul class="list-unstyled">
-        <li>Name: Project two</li>
-        <li class="card-text">Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim recusandae asperiores totam dolores quia mollitia!</li>
-        <li>Program: Internet of things</li>
-        <li>Year: 2021</li>
+        <li>Author 1, Author 2</li>
+        <li class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id exercitationem eum enim.</li>
+        <li>#ElonMusk #BillGates</li>
       </ul>
     </section>
   </div>
 
-  <div class="card col-2 mr-2">
+  <div class="card col-2">
     <section class="card-body">
-      <h3 class="card-title">Project 3</h3>
+      <h3 class="card-title text-primary">Project Title</h3>
       <ul class="list-unstyled">
-        <li>Name: Project three</li>
-        <li>Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Id exercitationem eum enim.</li>
-        <li>Program:  Machine learning</li>
-        <li>Year: 2022</li>
+        <li>Author 1, Author 2</li>
+        <li class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id exercitationem eum enim.</li>
+        <li>#ElonMusk #BillGates</li>
       </ul>
     </section>
   </div>
