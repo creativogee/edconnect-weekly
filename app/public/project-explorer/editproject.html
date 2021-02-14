@@ -17,11 +17,11 @@
     </div>
   </header>
   <nav class="navbar p-2 d-flex order-1 bg-primary justify-content-between">
-    <form action="" class="form-inline col-5 d-flex justify-content-between">
+    <form name="Search" action="" class="form-inline col-5 d-flex justify-content-between">
       <h4 class="text-light">Project Explorer</h4>
-      <input type="text" value="Search Projects" placeholder="Search Projects" class="form-control">
-      <input type="button" value="Search" class="btn  btn-outline-light" >
-      <input type="submit" value="Submit" class="btn text-light">
+      <input name="Search" type="text" value="Search Projects" placeholder="Search Projects" class="form-control">
+      <input name="Search" type="button" value="Search" class="btn  btn-outline-light" >
+      <input name="Search" type="submit" value="Submit" class="btn text-light">
     </form>
     <div>
       <a href="register.html" class="btn text-light">Sign up</a>
@@ -32,11 +32,11 @@
     <div class="container mt-5">
       <section>
         <h1>Project 1</h1>
-        <ul class="list-unstyled row bg-light p-3">
+        <ul class="list-unstyled row bg-light p-3 row">
           <li class="col-3">Created by: <br> Jane Doe</li>
           <li class="col-3">Date created: <br> 00/00/0000</li>
           <li class="col-3">Last updated: <br> 01/10/0000</li>
-          <li class="col-3 d-flex justify-content-end"><a href="#" class="btn btn-primary ">View project</a></li>
+          <li class="col-3 d-flex justify-content-end"><a href="#" class="btn btn-primary ">View Project</a></li>
         </ul>
         
       </section>
@@ -66,9 +66,14 @@
             <label class="custom-file-label" for="projectFile">Upload Files...</label>
             <input class="custom-file-input" type="file" name="projectFile">
           </div>
+
+          <div class="card mt-3">
+            <h4 class="card-header">Project files</h4>
+            <p class="text-center p-4">No file uploaded yet</p>
+          </div>
         </div>
           
-        <input class="btn btn-primary w-25 mt-3" type="submit">
+        <input class="btn btn-primary w-25 mt-3" type="submit" value="Save">
       </form>
     </section>
 
