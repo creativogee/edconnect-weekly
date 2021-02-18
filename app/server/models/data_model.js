@@ -47,6 +47,7 @@ class DataModel {
             this.data.splice(index, 1)
             return true
         }
+        return false
     }
 
     // this method will be overriden in the sub classes
