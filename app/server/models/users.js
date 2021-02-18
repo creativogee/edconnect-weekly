@@ -19,7 +19,7 @@ class User {
 
 class Users extends DataModel {
     authenticate(email, password) {
-        let user = this.data.find(obj => obj.email === email && obj.password === password)
+        let user = this.data.find(obj => obj.email == email && obj.password == password)
         if(user) {
             return true
         } else {
@@ -29,7 +29,7 @@ class Users extends DataModel {
     }
 
     getByEmail(email) {
-        let user = this.data.find(obj => obj.email === email)
+        let user = this.data.find(obj => obj.email == email)
         if(!user) {
             return null
         }
@@ -37,7 +37,7 @@ class Users extends DataModel {
     }
 
     getByMatricNumber(matricNumber) {
-        let user = this.data.find(obj => obj.matricNumber === matricNumber)
+        let user = this.data.find(obj => obj.matricNumber == matricNumber)
         if(!user) {
             return null
         }
@@ -46,7 +46,7 @@ class Users extends DataModel {
 
     validate(obj) {
         let isEmpty = Object.values(obj).some(x => (x == null || x == ''));
-        let userByEmail = this.data.some(myObj => myObj.email === obj.email)
+        let userByEmail = this.data.some(myObj => myObj.email == obj.email)
         let userByMatric = this.data.some(myObj => myObj.matricNumber == obj.matricNumber)
         
         
