@@ -9,7 +9,7 @@ class DataModel {
 
     getById(id) {
         let user = this.data.find(obj => {
-            return obj.id == id
+            return obj.id === id
         })
 
         if(!user) {
@@ -30,7 +30,7 @@ class DataModel {
     }
 
     update(obj, id) {
-        let user = this.data.find(item => item.id == id)
+        let user = this.data.find(item => item.id === id)
         if(!user) {
             return false
         }
@@ -41,7 +41,7 @@ class DataModel {
     }
 
     delete(id) {
-        let user = this.data.find(item => item.id == id)
+        let user = this.data.find(item => item.id === id)
         let index = this.data.indexOf(user)
         if(user) {
             this.data.splice(index, 1)

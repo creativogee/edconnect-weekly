@@ -13,7 +13,7 @@ class Project {
 
 class Projects extends DataModel {
     validate(obj) {
-        let isEmpty = Object.values(obj).some(x => (x == null || x == ''))
+        let isEmpty = Object.values(obj).some(x => (x === null || x === ''))
 
         if(Array.isArray(obj.authors) && Array.isArray(obj.tags) && !isEmpty) {
             return true
