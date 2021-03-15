@@ -205,9 +205,10 @@ if (window.location.href.includes("/project-explorer/viewproject.html")) {
       let result = await response.json()
       console.log(result)
       if (result) {
+        let name = await (await fetch(`/api/users/${result.createdBy}`)).json()
         projectName.innerText = result.name
         projectAbstract.innerText = result.abstract
-        projectAuthor.innerHTML = `Created by: <br/> ${result.createdBy}`
+        projectAuthor.innerHTML = `Created by: <br/> ${name.firstname} ${name.lastname}`
         projectAuthors.innerText = result.authors.join(", ")
         projectTags.innerText = result.tags.map(tag => `#${tag}`).join(", ")
       }
