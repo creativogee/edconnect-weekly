@@ -144,6 +144,10 @@ if (window.location.href.includes("/project-explorer/login.html")) {
 }
 
 if (window.location.href.includes("/project-explorer/createproject.html")) {
+  let check = document.cookie.split("=")
+  if (check[0] !== "uid") {
+    window.location.replace("/project-explorer/login.html")
+  }
   const createProjectForm = document.getElementById("createProjectForm")
   createProjectForm.onsubmit = async function (e) {
     e.preventDefault()
@@ -153,32 +157,27 @@ if (window.location.href.includes("/project-explorer/createproject.html")) {
     const tags = document.getElementById("tags").value.split(" ")
     const data = { name, abstract, authors, tags }
 
-    let check = document.cookie.split("=")
-    if (check[0] === "uid" && check[1]) {
-      const payload = await fetch("/api/projects", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
+    const payload = await fetch("/api/projects", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
 
-      const response = await payload.json()
-      if (response.status === "ok") {
-        window.location.replace("/project-explorer/index.html")
-      } else {
-        let errorDiv = document.createElement("div")
-        errorDiv.classList.add("alert", "alert-danger", "w-100")
-
-        let errors = response.errors.map(error => {
-          return `<p>${error}</p>`
-        })
-        errorDiv.innerHTML = errors.join("")
-
-        createProjectForm.prepend(errorDiv)
-      }
+    const response = await payload.json()
+    if (response.status === "ok") {
+      window.location.replace("/project-explorer/index.html")
     } else {
-      window.location.replace("/project-explorer/login.html")
+      let errorDiv = document.createElement("div")
+      errorDiv.classList.add("alert", "alert-danger", "w-100")
+
+      let errors = response.errors.map(error => {
+        return `<p>${error}</p>`
+      })
+      errorDiv.innerHTML = errors.join("")
+
+      createProjectForm.prepend(errorDiv)
     }
   }
 }
