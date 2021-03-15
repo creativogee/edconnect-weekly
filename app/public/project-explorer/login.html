@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <title>Login</title>
+  </head>
+  <body class="d-flex flex-column">
+    <header class="d-flex flex-column order-2">
+      <div class="jumbotron order-2 mr-5 ml-5 mt-3">
+        <h1>Welcome to Project Explorer</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit at architecto perferendis
+          consectetur amet id.
+        </p>
+        <a class="btn btn-primary" href="#">Get Started</a>
+        <a class="btn btn-secondary" href="#">Login</a>
+      </div>
+    </header>
+    <nav id="headerNav" class="navbar p-2 d-flex order-1 bg-primary justify-content-between">
+      <form name="Search" action="" class="form-inline col-5 d-flex justify-content-between">
+        <h4 class="text-light">Project Explorer</h4>
+        <input
+          name="Search"
+          type="text"
+          value="Search Projects"
+          placeholder="Search Projects"
+          class="form-control"
+        />
+        <button class="btn btn-outline-light">Search</button>
+        <a href="viewproject.html" class="btn btn-outline-light">Projects</a>
+      </form>
+      <div id="userStatus" class="mw-25">
+        <a href="register.html" class="btn btn-outline-light">Sign up</a>
+        <a href="login.html" class="btn btn-outline-light">Login</a>
+      </div>
+    </nav>
+    <main class="order-3">
+      <div class="mx-auto w-25">
+        <form id="loginForm" name="Login" action="" class="form-group">
+          <h1>Login</h1>
+          <label for="email" class="form-label mt-3">Email Address: </label>
+          <input
+            id="loginEmail"
+            type="email"
+            name="email"
+            class="form-control"
+            placeholder="Enter email"
+          />
+          <label for="password" class="form-label mt-3">Password: </label>
+          <input
+            id="loginPassword"
+            type="password"
+            name="password"
+            class="form-control"
+            placeholder="Password"
+          />
+          <button class="btn btn-primary form-control mt-3 w-50">Login</button>
+        </form>
+      </div>
+    </main>
+    <script src="js/app.js"></script>
+  </body>
+</html>

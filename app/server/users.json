@@ -1,1 +1,30 @@
-{"data":[{"id":"uqdecg701wb","firstname":"efe","lastname":"amad","email":"efe@gmail.com","password":"passME123","matricNumber":"06/1234","program":"comp tech","graduationYear":"2020"}]}
+{
+  "data": [
+    {
+      "id": "uqdecg701wb",
+      "firstname": "efe",
+      "lastname": "amad",
+      "email": "efe@gmail.com",
+      "password": "passME123",
+      "matricNumber": "06/1234",
+      "program": "comp tech",
+      "graduationYear": "2020"
+    },
+    {
+      "id": "bmcapj0y4em",
+      "email": {},
+      "password": {},
+      "matricNumber": {},
+      "graduationYear": { "0": {}, "1": {}, "2": {}, "3": {}, "4": {}, "5": {} }
+    },
+    {
+      "id": "98wch51mu5v",
+      "firstname": "Gbenga",
+      "lastname": "Omowole",
+      "email": "omowole.gbenga@gmail.com",
+      "password": "78787878",
+      "matricNumber": "8383838383",
+      "graduationYear": "2015"
+    }
+  ]
+}

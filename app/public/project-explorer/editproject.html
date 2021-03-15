@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <title>Edit project</title>
+  </head>
+  <body class="d-flex flex-column">
+    <header class="d-flex flex-column order-2">
+      <div class="jumbotron order-2 mr-5 ml-5 mt-3">
+        <h1>Welcome to Project Explorer</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit at architecto perferendis
+          consectetur amet id.
+        </p>
+        <a class="btn btn-primary" href="register.html">Get Started</a>
+        <a class="btn btn-secondary" href="login.html">Login</a>
+      </div>
+    </header>
+    <nav id="headerNav" class="navbar p-2 d-flex order-1 bg-primary justify-content-between">
+      <form name="Search" action="" class="form-inline col-5 d-flex justify-content-between">
+        <h4 class="text-light">Project Explorer</h4>
+        <input
+          name="Search"
+          type="text"
+          value="Search Projects"
+          placeholder="Search Projects"
+          class="form-control"
+        />
+        <button class="btn btn-outline-light">Search</button>
+        <a href="viewproject.html" class="btn btn-outline-light">Projects</a>
+      </form>
+      <div id="userStatus" class="mw-25">
+        <a href="register.html" class="btn btn-outline-light">Sign up</a>
+        <a href="login.html" class="btn btn-outline-light">Login</a>
+      </div>
+    </nav>
+    <main class="p-2 order-3">
+      <div class="container mt-5">
+        <section>
+          <h1>Project 1</h1>
+          <div class="row bg-light pt-2 mt-2">
+            <div class="col">
+              <p>Created By<br />Elon Musk</p>
+            </div>
+            <div class="col">
+              <p>Date Created <br />2020-08-30</p>
+            </div>
+            <div class="col">
+              <p>Lst Updated <br />2020-08-30</p>
+            </div>
+            <div class="col d-flex justify-content-end p-3">
+              <button type="submit" class="btn btn-primary">
+                <a class="btn btn-primary" href="viewproject.html">View Project</a>
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="mx-auto w-50 pt-5">
+        <form action="" name="editProject" class="form-group row">
+          <div class="col">
+            <h4>Edit Project</h4>
+            <label class="form-label mt-3" for="name">Project Name: </label>
+            <input class="form-control" type="text" name="name" />
+
+            <label class="form-label mt-3" for="a">Project Abstract</label>
+            <textarea class="form-control" name="abstract" id="" cols="30" rows="10"></textarea>
+
+            <label class="form-label mt-3" for="authors">Authors: </label>
+            <input class="form-control" type="text" name="authors" />
+
+            <label class="form-label mt-3" for="tags">Tag(s)</label>
+            <input class="form-control" type="text" name="tags" />
+          </div>
+
+          <div class="col">
+            <h4>Manage Project Files</h4>
+            <label class="form-label mt-3" for="projectFile">Upload Files:</label>
+            <div class="custom-file">
+              <label class="custom-file-label" for="projectFile">Upload Files...</label>
+              <input class="custom-file-input" type="file" name="projectFile" />
+            </div>
+
+            <div class="card mt-3">
+              <h4 class="card-header">Project files</h4>
+              <p class="text-center p-4">No file uploaded yet</p>
+            </div>
+          </div>
+
+          <input class="btn btn-primary w-25 mt-3" type="submit" value="Save" />
+        </form>
+      </section>
+    </main>
+    <script src="js/app.js"></script>
+  </body>
+</html>
