@@ -11,7 +11,7 @@ window.onload = async function () {
     let headerNav = document.getElementById("headerNav")
     logOutEl.innerText = "Logout"
     let greetEl = document.createElement("span")
-    greetEl.innerHTML = `<span>Hi ${result.firstname}</span>`
+    greetEl.innerHTML = `<span id="username">Hi ${result.firstname}</span>`
     userStatus.classList.add("invisible")
     headerNav.appendChild(logOutEl)
     headerNav.appendChild(greetEl)
