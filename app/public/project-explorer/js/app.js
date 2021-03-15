@@ -183,6 +183,10 @@ if (window.location.href.includes("/project-explorer/createproject.html")) {
 }
 
 if (window.location.href.includes("/project-explorer/viewproject.html")) {
+  let check = document.cookie.split("=")
+  if (check[0] !== "uid") {
+    window.location.replace("/project-explorer/login.html")
+  }
   const projectName = document.getElementById("project_name")
   const projectAuthor = document.getElementById("project_author")
   const projectAbstract = document.getElementById("project_abstract")
@@ -207,7 +211,7 @@ if (window.location.href.includes("/project-explorer/viewproject.html")) {
       if (result) {
         projectName.innerText = result.name
         projectAbstract.innerText = result.abstract
-        projectAuthor.innerText = result.createdBy
+        projectAuthor.innerHTML = `Created by: <br/> ${result.createdBy}`
         projectAuthors.innerText = result.authors.join(", ")
         projectTags.innerText = result.tags.map(tag => `#${tag}`).join(", ")
       }

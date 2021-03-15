@@ -1,1 +1,12 @@
-{"data":[{"id":"qqg8jtk5iso","name":"edconnect","abstract":"hello this is an abstract","authors":["efe","john"],"tags":["e-learning"],"createdBy":"uqdecg701wb"},{"id":"kzfnrprzqx","name":"Manitoba","abstract":"None of your business","authors":["gbenga"," jumoke"],"tags":["#Elon","#Musk"],"createdBy":"98wch51mu5v"}]}
+{
+  "data": [
+    {
+      "id": "qqg8jtk5iso",
+      "name": "edconnect",
+      "abstract": "hello this is an abstract",
+      "authors": ["efe", "john"],
+      "tags": ["e-learning"],
+      "createdBy": "efe amad"
+    }
+  ]
+}
