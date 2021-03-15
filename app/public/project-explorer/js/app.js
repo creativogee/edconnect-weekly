@@ -144,8 +144,9 @@ if (window.location.href.includes("/project-explorer/login.html")) {
 }
 
 if (window.location.href.includes("/project-explorer/createproject.html")) {
-  let check = document.cookie.split("=")
-  if (check[0] !== "uid") {
+  let check = document.cookie.split(";").find(item => item.startsWith("uid="))
+  if (!check) {
+    console.log("No cookie today")
     window.location.replace("/project-explorer/login.html")
   }
   const createProjectForm = document.getElementById("createProjectForm")
@@ -200,10 +201,8 @@ if (window.location.href.includes("/project-explorer/viewproject.html")) {
       }
     })
     ;(async function () {
-      console.log(id)
       let response = await fetch(`/api/projects/${id}`)
       let result = await response.json()
-      console.log(result)
       if (result) {
         let name = await (await fetch(`/api/users/${result.createdBy}`)).json()
         projectName.innerText = result.name
