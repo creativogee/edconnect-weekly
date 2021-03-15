@@ -183,10 +183,6 @@ if (window.location.href.includes("/project-explorer/createproject.html")) {
 }
 
 if (window.location.href.includes("/project-explorer/viewproject.html")) {
-  let check = document.cookie.split("=")
-  if (check[0] !== "uid") {
-    window.location.replace("/project-explorer/login.html")
-  }
   const projectName = document.getElementById("project_name")
   const projectAuthor = document.getElementById("project_author")
   const projectAbstract = document.getElementById("project_abstract")
