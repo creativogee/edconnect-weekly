@@ -91,6 +91,7 @@ const CreateProject = () => {
                 <Form.Label>Project Name:</Form.Label>
                 <Form.Control
                   type="text"
+                  name="name"
                   id="name"
                   placeholder="Enter project name"
                   value={name}
@@ -104,6 +105,7 @@ const CreateProject = () => {
                 <Form.Label>Project Abstract:</Form.Label>
                 <Form.Control
                   as="textarea"
+                  name="abstract"
                   id="abstract"
                   rows={4}
                   cols={100}
@@ -118,6 +120,7 @@ const CreateProject = () => {
                 <Form.Label>Author(s): </Form.Label>
                 <Form.Control
                   type="text"
+                  name="authors"
                   id="authors"
                   placeholder="Enter author names (seperated by comma)"
                   value={authors.join(",")}
@@ -132,6 +135,7 @@ const CreateProject = () => {
                 <Form.Control
                   type="text"
                   id="tags"
+                  name="tags"
                   placeholder="Use # to tag project with different topics"
                   value={tags.join(",")}
                   onChange={handleInput}
