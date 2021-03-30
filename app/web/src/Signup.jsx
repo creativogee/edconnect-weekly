@@ -98,124 +98,122 @@ const Signup = () => {
   }
 
   return (
-    <div>
-      <Layout>
-        <main>
-          <div className="mx-auto w-50 p-2 mt-5">
-            <h1>Sign Up</h1>
-            <Form id="signupForm" onSubmit={handleSubmit}>
-              {error && (
-                <Alert variant="danger">
-                  {errorMessages.map((err, index) => (
-                    <p key={index}>{err}</p>
+    <Layout>
+      <main>
+        <div className="mx-auto w-50 p-2 mt-5">
+          <h1>Sign Up</h1>
+          <Form id="signupForm" onSubmit={handleSubmit}>
+            {error && (
+              <Alert variant="danger">
+                {errorMessages.map((err, index) => (
+                  <p key={index}>{err}</p>
+                ))}
+              </Alert>
+            )}
+            <Form.Group as={Row}>
+              <Col>
+                <Form.Label for="firstName">First Name: </Form.Label>
+                <Form.Control
+                  id="firstname"
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  value={firstName}
+                  onChange={handleInput}
+                />
+              </Col>
+
+              <Col>
+                <Form.Label for="lastName">Last Name: </Form.Label>
+                <Form.Control
+                  id="lastname"
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  value={lastName}
+                  onChange={handleInput}
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row}>
+              <Col>
+                <Form.Label for="email">Email Address: </Form.Label>
+                <Form.Control
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={email}
+                  onChange={handleInput}
+                />
+              </Col>
+
+              <Col>
+                <Form.Label for="password">Password: </Form.Label>
+                <Form.Control
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={handleInput}
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row}>
+              <Col md="6">
+                <Form.Label for="program">Program:</Form.Label>
+                <Form.Control
+                  id="program"
+                  as="select"
+                  name="program"
+                  value={program}
+                  onChange={handleInput}
+                >
+                  <option>Select Program</option>
+                  {programs.map(program => (
+                    <option key={program}>{program}</option>
                   ))}
-                </Alert>
-              )}
-              <Form.Group as={Row}>
-                <Col>
-                  <Form.Label for="firstName">First Name: </Form.Label>
-                  <Form.Control
-                    id="firstname"
-                    type="text"
-                    name="firstName"
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={handleInput}
-                  />
-                </Col>
+                </Form.Control>
+              </Col>
 
-                <Col>
-                  <Form.Label for="lastName">Last Name: </Form.Label>
-                  <Form.Control
-                    id="lastname"
-                    type="text"
-                    name="lastName"
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={handleInput}
-                  />
-                </Col>
-              </Form.Group>
+              <Col md="3">
+                <Form.Label for="matricNumber">Matric Number:</Form.Label>
+                <Form.Control
+                  type="text"
+                  id="matricNumber"
+                  name="matricNumber"
+                  placeholder="Matric Number"
+                  value={matricNumber}
+                  onChange={handleInput}
+                />
+              </Col>
 
-              <Form.Group as={Row}>
-                <Col>
-                  <Form.Label for="email">Email Address: </Form.Label>
-                  <Form.Control
-                    id="email"
-                    type="email"
-                    name="email"
-                    placeholder="Email Address"
-                    value={email}
-                    onChange={handleInput}
-                  />
-                </Col>
-
-                <Col>
-                  <Form.Label for="password">Password: </Form.Label>
-                  <Form.Control
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={handleInput}
-                  />
-                </Col>
-              </Form.Group>
-
-              <Form.Group as={Row}>
-                <Col md="6">
-                  <Form.Label for="program">Program:</Form.Label>
-                  <Form.Control
-                    id="program"
-                    as="select"
-                    name="program"
-                    value={program}
-                    onChange={handleInput}
-                  >
-                    <option>Select Program</option>
-                    {programs.map(program => (
-                      <option key={program}>{program}</option>
-                    ))}
-                  </Form.Control>
-                </Col>
-
-                <Col md="3">
-                  <Form.Label for="matricNumber">Matric Number:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="matricNumber"
-                    name="matricNumber"
-                    placeholder="Matric Number"
-                    value={matricNumber}
-                    onChange={handleInput}
-                  />
-                </Col>
-
-                <Col md="3">
-                  <Form.Label for="graduationYear">Graduation Year:</Form.Label>
-                  <Form.Control
-                    as="select"
-                    name="graduationYear"
-                    id="graduationYear"
-                    value={graduationYear}
-                    onChange={handleInput}
-                  >
-                    <option>Select Graduation Year</option>
-                    {graduationYears.map((graduationYear, index) => (
-                      <option key={index}>{graduationYear}</option>
-                    ))}
-                  </Form.Control>
-                </Col>
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Sign Up
-              </Button>
-            </Form>
-          </div>
-        </main>
-      </Layout>
-    </div>
+              <Col md="3">
+                <Form.Label for="graduationYear">Graduation Year:</Form.Label>
+                <Form.Control
+                  as="select"
+                  name="graduationYear"
+                  id="graduationYear"
+                  value={graduationYear}
+                  onChange={handleInput}
+                >
+                  <option>Select Graduation Year</option>
+                  {graduationYears.map((graduationYear, index) => (
+                    <option key={index}>{graduationYear}</option>
+                  ))}
+                </Form.Control>
+              </Col>
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Sign Up
+            </Button>
+          </Form>
+        </div>
+      </main>
+    </Layout>
   )
 }
 

@@ -1,89 +1,61 @@
 import React from "react"
+import { useState, useEffect } from "react"
+import { Jumbotron, Button, Container, Row, Col, Card } from "react-bootstrap"
+import { Link } from "react-router-dom"
 import Layout from "./shared/Layout"
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
-import { Jumbotron, Button } from "react-bootstrap"
 
 const Home = () => {
+  const [projects, setProjects] = useState([])
+  useEffect(() => {
+    fetch("api/projects")
+      .then(res => res.json())
+      .then(data => {
+        setProjects(data)
+      })
+  }, [])
+
   return (
-    <>
-      <Layout>
-        <header class="d-flex flex-column order-2">
+    <Layout>
+      <main>
+        <div className="mx-auto">
           <Jumbotron>
-            <h1>Welcome to Project Explorer</h1>
+            <h1>Project Explorer</h1>
             <p>
               Project Explorer is a repository for final year projects across all departments at
               your institution. You can submit your project and search projects submitted by others
               to learn from.
             </p>
-            <Button variant="primary" href="/signup">
+            <Button variant="primary" href="/signup" className="mr-3">
               Get Started
             </Button>
-            <Button variant="secondary" href="/login" className="ml-3">
+            <Button variant="secondary" href="/login">
               Login
             </Button>
           </Jumbotron>
-        </header>
-        <main class="p-2 order-3">
-          <div class="d-flex flex-row justify-content-between mr-5 ml-5 showcase">
-            <div class="card col-2">
-              <section class="card-body">
-                <h3 class="card-title text-primary">Project Title</h3>
-                <ul class="list-unstyled">
-                  <li class="card-subtitle">Author 1, Author 2</li>
-                  <li class="card-text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Id exercitationem eum
-                    enim.
-                  </li>
-                  <li>#ElonMusk #BillGates</li>
-                </ul>
-              </section>
-            </div>
+        </div>
 
-            <div class="card col-2">
-              <section class="card-body">
-                <h3 class="card-title text-primary">Project TItle</h3>
-                <ul class="list-unstyled">
-                  <li>Author 1, Author 2</li>
-                  <li class="card-text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Id exercitationem eum
-                    enim.
-                  </li>
-                  <li>#ElonMusk #BillGates</li>
-                </ul>
-              </section>
-            </div>
-
-            <div class="card col-2">
-              <section class="card-body">
-                <h3 class="card-title text-primary">Project Title</h3>
-                <ul class="list-unstyled">
-                  <li>Author 1, Author 2</li>
-                  <li class="card-text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Id exercitationem eum
-                    enim.
-                  </li>
-                  <li>#ElonMusk #BillGates</li>
-                </ul>
-              </section>
-            </div>
-
-            <div class="card col-2">
-              <section class="card-body">
-                <h3 class="card-title text-primary">Project Title</h3>
-                <ul class="list-unstyled">
-                  <li>Author 1, Author 2</li>
-                  <li class="card-text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Id exercitationem eum
-                    enim.
-                  </li>
-                  <li>#ElonMusk #BillGates</li>
-                </ul>
-              </section>
-            </div>
-          </div>
-        </main>
-      </Layout>
-    </>
+        <Container fluid>
+          <Row className="showcase justify-content-between">
+            {projects.map(project => (
+              <Col className="col-2">
+                <Card>
+                  <Card.Body>
+                    <Card.Title>
+                      <Link to={`/projects/${project.id}`}>{project.name}</Link>
+                    </Card.Title>
+                    <Card.Text>{project.authors.join(", ")}</Card.Text>
+                    <Card.Text>{project.abstract}</Card.Text>
+                    <Card.Text>
+                      <Link to={"#"}>{project.tags.map(tag => `#${tag}`)}</Link>
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </main>
+    </Layout>
   )
 }
 
