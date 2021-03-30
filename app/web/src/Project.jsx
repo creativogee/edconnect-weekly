@@ -16,7 +16,6 @@ const Project = () => {
     fetch(`/api/projects/${id}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         setProjectTitle(data.name)
         setCreatorId(data.createdBy)
         setAbstract(data.abstract)

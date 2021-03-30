@@ -60,7 +60,6 @@ const CreateProject = () => {
     })
 
     const response = await payload.json()
-    console.log(response)
     defaultState()
 
     if (response.status === "ok") {
