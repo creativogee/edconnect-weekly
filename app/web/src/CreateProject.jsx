@@ -78,7 +78,7 @@ const CreateProject = () => {
       <main>
         <div class="mx-auto w-50 p-2 mt-5">
           <h3>Submit Project</h3>
-          <Form id="submitProject" onSubmit={handleSubmit}>
+          <Form id="createProjectForm" onSubmit={handleSubmit}>
             {error && (
               <Alert variant="danger">
                 {errorMessages.map((err, index) => (
