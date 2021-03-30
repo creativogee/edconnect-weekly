@@ -7,7 +7,7 @@ const Project = () => {
   const [projectTitle, setProjectTitle] = useState("")
   const [creatorId, setCreatorId] = useState("")
   const [author, setAuthor] = useState("")
-  const [authors, setAuthors] = useState("")
+  const [authors, setAuthors] = useState([])
   const [abstract, setAbstract] = useState("")
   const { id } = useParams()
 
