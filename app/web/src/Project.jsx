@@ -9,18 +9,21 @@ const Project = () => {
   const [author, setAuthor] = useState("")
   const [authors, setAuthors] = useState([])
   const [abstract, setAbstract] = useState("")
+  const [tags, setTags] = useState([])
   const { id } = useParams()
 
   useEffect(() => {
     fetch(`/api/projects/${id}`)
       .then(res => res.json())
       .then(data => {
-        // console.log(data.authors)
+        console.log(data)
         setProjectTitle(data.name)
         setCreatorId(data.createdBy)
         setAbstract(data.abstract)
         setAuthors(data.authors)
+        setTags(data.tags)
       })
+    return
   }, [id])
 
   useEffect(() => {
@@ -39,13 +42,13 @@ const Project = () => {
           <Container>
             <Row>
               <strong>
-                <h2>{projectTitle}</h2>
+                <h2 id="project_name">{projectTitle}</h2>
               </strong>
             </Row>
 
             <Row className="bg-light p-3">
-              <Col>
-                Created by: <br /> {author}
+              <Col id="project_author">
+                Created b: <br /> {author}
               </Col>
               <Col>
                 Date created: <br /> 2020-01-12
@@ -73,7 +76,7 @@ const Project = () => {
             <hr className="mb-4" />
 
             <Row className="mb-5">
-              <Col>{abstract}</Col>
+              <Col id="project_abstract">{abstract}</Col>
             </Row>
 
             <Row>
@@ -122,7 +125,7 @@ const Project = () => {
                     <h6>Author(s)</h6>
                   </Card.Header>
                   <Card.Body className="pr-0 pl-0">
-                    <Card.Text>
+                    <Card.Text id="project_authors">
                       {authors.map((author, index) => {
                         return (
                           <div>
@@ -133,7 +136,8 @@ const Project = () => {
                       })}
                     </Card.Text>
                   </Card.Body>
-                  <Card.Footer></Card.Footer>
+
+                  <Card.Footer id="project_tags">{tags.map(tag => `#${tag}`)}</Card.Footer>
                 </Card>
               </Col>
             </Row>
