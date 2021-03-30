@@ -85,7 +85,6 @@ const Signup = () => {
     })
 
     const response = await payload.json()
-    console.log(response)
     defaultState()
 
     if (response.status === "ok") {

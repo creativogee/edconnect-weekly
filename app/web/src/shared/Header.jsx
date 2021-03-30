@@ -9,7 +9,6 @@ const Header = () => {
 
   useEffect(() => {
     const cookies = document.cookie.match("(^|;)\\s*uid\\s*=\\s*([^;]+)")
-    // console.log(cookies)
     if (cookies) {
       fetch(`/api/users/${cookies.pop()}`)
         .then(res => res.json())

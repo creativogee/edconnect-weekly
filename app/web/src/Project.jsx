@@ -48,7 +48,7 @@ const Project = () => {
 
             <Row className="bg-light p-3">
               <Col id="project_author">
-                Created b: <br /> {author}
+                Created by: <br /> {author}
               </Col>
               <Col>
                 Date created: <br /> 2020-01-12
