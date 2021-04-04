@@ -39,7 +39,7 @@ const Signup = ({ programs, graduationYears, error, input }) => {
   }
 
   return (
-    <Layout>
+    <Layout user={user}>
       <main>
         <div className="mx-auto w-50 p-2 mt-5">
           <h1>Sign Up</h1>

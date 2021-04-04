@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Alert, Button, Col, Form, Row } from "react-bootstrap"
 import Layout from "./shared/Layout"
 
-const CreateProject = ({ error }) => {
+const CreateProject = ({ error, user }) => {
   const [name, setName] = useState("")
   const [abstract, setAbstract] = useState("")
   const [authors, setAuthors] = useState([])
@@ -28,7 +28,7 @@ const CreateProject = ({ error }) => {
   }
 
   return (
-    <Layout>
+    <Layout user={user}>
       <main>
         <div className="mx-auto w-50 p-2 mt-5">
           <h3>Submit Project</h3>

@@ -2,9 +2,9 @@ import React, { useState } from "react"
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap"
 import Layout from "./shared/Layout"
 
-const Project = ({ project, user }) => {
+const Project = ({ project, user, creator }) => {
   return (
-    <Layout>
+    <Layout user={user}>
       <main>
         <div className="mx-auto w-50 mt-5">
           <Container>
@@ -16,7 +16,7 @@ const Project = ({ project, user }) => {
 
             <Row className="bg-light p-3">
               <Col id="project_author">
-                Created by: <br /> {user?.firstname + " " + user?.lastname}
+                Created by: <br /> {creator?.firstname + " " + creator?.lastname}
               </Col>
               <Col>
                 Date created: <br /> 2020-01-12

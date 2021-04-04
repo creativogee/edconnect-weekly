@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Alert, Button, Form, Row, Col } from "react-bootstrap"
 import Layout from "./shared/Layout"
 
-const Login = ({ error }) => {
+const Login = ({ error, user }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -20,7 +20,7 @@ const Login = ({ error }) => {
   }
 
   return (
-    <Layout>
+    <Layout user={user}>
       <main>
         <div className="mx-auto w-50 p-2 mt-5">
           <h1>Login</h1>

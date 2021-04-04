@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { Form, Button, Nav, Navbar } from "react-bootstrap"
 
 const Header = ({ user }) => {

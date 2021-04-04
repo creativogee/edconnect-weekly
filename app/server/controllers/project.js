@@ -3,15 +3,15 @@ const router = express.Router()
 
 router.get("/projects/submit", (req, res) => {
   const user = req.session.user
+  const errorJson = req.flash("projectError")
   if (!user) {
     res.redirect("/login")
   }
-  const errorJson = req.flash("projectError")
   if (errorJson.length > 0) {
     const error = JSON.parse(errorJson[0])
-    res.render("CreateProject", { error })
+    res.render("CreateProject", { error, user })
   }
-  res.render("CreateProject")
+  res.render("CreateProject", { user })
 })
 
 router.post("/projects/submit", (req, res) => {
@@ -19,6 +19,7 @@ router.post("/projects/submit", (req, res) => {
   const { tags, authors, id, ...others } = req.body
   const tagsArr = tags.split(", ")
   const authorsArr = authors.split(", ")
+
   const project = response.create({
     tags: tagsArr,
     authors: authorsArr,
@@ -40,12 +41,16 @@ router.get("/project/:id", (req, res) => {
   const project = projectRes.getById(projectId)
   const userId = project.createdBy
   const userRes = require("../services/user")
-  const user = userRes.getById(userId)
+  const creator = userRes.getById(userId)
+  const user = req.session.user
 
-  if (!project || !user) {
+  if (!project || !creator) {
     res.redirect("/")
   }
-  res.render("Project", { project, user })
+
+  if (user) {
+    res.render("Project", { project, user, creator })
+  }
 })
 
 module.exports = router

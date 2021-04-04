@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
 })
 
 router.get("/logout", (req, res) => {
-  req.session.user.destroy()
+  req.session.destroy()
 
   res.redirect("/")
 })
