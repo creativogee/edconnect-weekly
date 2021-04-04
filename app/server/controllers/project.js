@@ -4,14 +4,17 @@ const router = express.Router()
 router.get("/projects/submit", (req, res) => {
   const user = req.session.user
   const errorJson = req.flash("projectError")
+
+  let error
+  if (errorJson.length > 0) {
+    error = JSON.parse(errorJson[0])
+  }
+
   if (!user) {
     res.redirect("/login")
-  }
-  if (errorJson.length > 0) {
-    const error = JSON.parse(errorJson[0])
+  } else {
     res.render("CreateProject", { error, user })
   }
-  res.render("CreateProject", { user })
 })
 
 router.post("/projects/submit", (req, res) => {
@@ -44,11 +47,9 @@ router.get("/project/:id", (req, res) => {
   const creator = userRes.getById(userId)
   const user = req.session.user
 
-  if (!project || !creator) {
+  if (!project) {
     res.redirect("/")
-  }
-
-  if (user) {
+  } else {
     res.render("Project", { project, user, creator })
   }
 })

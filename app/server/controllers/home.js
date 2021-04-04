@@ -7,8 +7,9 @@ router.get("/", (req, res) => {
   const user = req.session.user
   if (user) {
     res.render("Home", { data, user })
+  } else {
+    res.render("Home", { data })
   }
-  res.render("Home", { data })
 })
 
 router.get("/logout", (req, res) => {

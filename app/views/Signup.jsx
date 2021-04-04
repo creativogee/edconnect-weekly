@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Layout from "./shared/Layout"
 import { Alert, Button, Col, Form, Row } from "react-bootstrap"
 
-const Signup = ({ programs, graduationYears, error, input }) => {
+const Signup = ({ programs, graduationYears, error, input, user }) => {
   const [firstName, setFirstName] = useState(input?.firstName)
   const [lastName, setLastName] = useState(input?.lastName)
   const [email, setEmail] = useState(input?.email)
@@ -39,7 +39,7 @@ const Signup = ({ programs, graduationYears, error, input }) => {
   }
 
   return (
-    <Layout user={user}>
+    <Layout user={user ? user : null}>
       <main>
         <div className="mx-auto w-50 p-2 mt-5">
           <h1>Sign Up</h1>
