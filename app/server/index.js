@@ -29,11 +29,10 @@ register(app).then(() => {
     session({
       secret: "secret",
       cookie: {
-        path: "/",
         maxAge: 1000 * 60 * 60 * 24 * 7,
       },
       resave: true,
-      saveUninitialized: true,
+      saveUninitialized: false,
     })
   )
 

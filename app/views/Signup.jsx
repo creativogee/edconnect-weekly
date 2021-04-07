@@ -57,7 +57,7 @@ const Signup = ({ programs, graduationYears, error, input, user }) => {
                 <Form.Control
                   id="firstname"
                   type="text"
-                  name="firstname"
+                  name="firstName"
                   placeholder="First Name"
                   value={firstName}
                   onChange={handleInput}
@@ -69,7 +69,7 @@ const Signup = ({ programs, graduationYears, error, input, user }) => {
                 <Form.Control
                   id="lastname"
                   type="text"
-                  name="lastname"
+                  name="lastName"
                   placeholder="Last Name"
                   value={lastName}
                   onChange={handleInput}

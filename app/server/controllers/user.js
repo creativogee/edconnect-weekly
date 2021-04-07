@@ -25,7 +25,9 @@ router.get("/signup", (req, res) => {
 
 router.post("/signup", (req, res) => {
   const response = require("../services/user")
-  const user = response.create(req.body)
+  const { firstName, lastName, ...others } = req.body
+  const body = { firstname: firstName, lastname: lastName, ...others }
+  const user = response.create(body)
   if (user[0] === true) {
     req.session.user = user[1]
     res.redirect("/")
