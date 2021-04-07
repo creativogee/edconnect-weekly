@@ -53,11 +53,11 @@ const Signup = ({ programs, graduationYears, error, input, user }) => {
             )}
             <Form.Group as={Row}>
               <Col>
-                <Form.Label htmlFor="firstName">First Name: </Form.Label>
+                <Form.Label htmlFor="firstname">First Name: </Form.Label>
                 <Form.Control
                   id="firstname"
                   type="text"
-                  name="firstName"
+                  name="firstname"
                   placeholder="First Name"
                   value={firstName}
                   onChange={handleInput}
@@ -65,11 +65,11 @@ const Signup = ({ programs, graduationYears, error, input, user }) => {
               </Col>
 
               <Col>
-                <Form.Label htmlFor="lastName">Last Name: </Form.Label>
+                <Form.Label htmlFor="lastname">Last Name: </Form.Label>
                 <Form.Control
                   id="lastname"
                   type="text"
-                  name="lastName"
+                  name="lastname"
                   placeholder="Last Name"
                   value={lastName}
                   onChange={handleInput}
