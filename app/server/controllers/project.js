@@ -49,8 +49,10 @@ router.get("/project/:id", (req, res) => {
 
   if (!project) {
     res.redirect("/")
-  } else {
+  } else if (user) {
     res.render("Project", { project, user, creator })
+  } else {
+    res.render("Project", { project, creator })
   }
 })
 

@@ -15,14 +15,19 @@ router.get("/signup", (req, res) => {
     error = JSON.parse(errorJson)
     input = JSON.parse(inputJson)
   }
-  res.render("Signup", { programs, graduationYears, error, input, user })
+
+  if (user) {
+    res.render("Signup", { programs, graduationYears, error, input, user })
+  } else {
+    res.render("Signup", { programs, graduationYears, error, input })
+  }
 })
 
 router.post("/signup", (req, res) => {
   const response = require("../services/user")
   const user = response.create(req.body)
   if (user[0] === true) {
-    req.session.user = user
+    req.session.user = user[1]
     res.redirect("/")
   } else {
     req.flash("signupInput", JSON.stringify(req.body))
@@ -34,8 +39,11 @@ router.post("/signup", (req, res) => {
 router.get("/login", (req, res) => {
   const user = req.session.user
   const error = req.flash("loginError")[0]
-
-  res.render("Login", { error, user })
+  if (user) {
+    res.render("Login", { error, user })
+  } else {
+    res.render("Login", { error })
+  }
 })
 
 router.post("/login", (req, res) => {

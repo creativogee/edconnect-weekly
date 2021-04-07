@@ -4,8 +4,7 @@ const router = express.Router()
 router.get("/", (req, res) => {
   const response = require("../services/project")
   const data = response.getAll()
-  const userRes = req.session.user
-  const user = userRes[1]
+  const user = req.session.user
 
   if (user) {
     res.render("Home", { data, user })
