@@ -13,8 +13,7 @@ const Header = ({ user }) => {
           </Button>
         </Form>
         <Nav>
-          <Nav.Link href="/projects">Projects</Nav.Link>
-          <Nav.Link href="/projects/submit">Submit</Nav.Link>
+          <Nav.Link href="/projects/submit">Projects</Nav.Link>
         </Nav>
       </Nav>
 

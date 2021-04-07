@@ -26,7 +26,7 @@ router.post("/projects/submit", (req, res) => {
   const project = response.create({
     tags: tagsArr,
     authors: authorsArr,
-    createdBy: id,
+    createdBy: req.session.user.id,
     ...others,
   })
 
@@ -49,7 +49,8 @@ router.get("/project/:id", (req, res) => {
 
   if (!project) {
     res.redirect("/")
-  } else if (user) {
+  }
+  if (user) {
     res.render("Project", { project, user, creator })
   } else {
     res.render("Project", { project, creator })
