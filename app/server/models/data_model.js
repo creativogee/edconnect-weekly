@@ -1,10 +1,11 @@
 class DataModel {
     constructor() {
-        this.data = [];
+        this.data = []
+        this.errors = []
     }
 
     getAll() {
-        return this.data;
+        return this.data
     }
 
     getById(id) {
@@ -12,29 +13,27 @@ class DataModel {
             return obj.id === id
         })
 
-        if(!user) {
+        if (!user) {
             return null
         }
 
         return user
-
-        
     }
 
     save(obj) {
         if (this.validate(obj)) {
-            this.data.push(obj);
-            return true;
+            this.data.push(obj)
+            return true
         }
-        return false;
+        return false
     }
 
     update(obj, id) {
         let user = this.data.find(item => item.id === id)
-        if(!user) {
+        if (!user) {
             return false
         }
-        for(let prop in obj) {
+        for (let prop in obj) {
             user[prop] = obj[prop]
         }
         return true
@@ -43,7 +42,7 @@ class DataModel {
     delete(id) {
         let user = this.data.find(item => item.id === id)
         let index = this.data.indexOf(user)
-        if(user) {
+        if (user) {
             this.data.splice(index, 1)
             return true
         }
@@ -52,10 +51,10 @@ class DataModel {
 
     // this method will be overriden in the sub classes
     validate(obj) {
-        return false;
+        return false
     }
 }
 
 // Do not worry about the below for now; It is included so that we can test your code
 // We will cover module exports in later parts of this course
-module.exports = DataModel;
+module.exports = DataModel
