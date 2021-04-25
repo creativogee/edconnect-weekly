@@ -66,9 +66,9 @@ class Users extends DataModel {
         }
 
         if (this.errors.length === 0) {
-            return false
-        } else {
             return true
+        } else {
+            return false
         }
     }
 }
