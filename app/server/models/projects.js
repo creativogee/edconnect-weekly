@@ -32,7 +32,7 @@ class Projects extends DataModel {
             this.errors.push("Tags should be an array")
         }
 
-        if (isAuthorArray && isTagArray && isEmpty.length < 1) {
+        if (this.errors.length === 0) {
             return true
         } else {
             return false

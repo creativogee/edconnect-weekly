@@ -45,7 +45,6 @@ class Users extends DataModel {
 
     validate(obj) {
         this.errors = []
-        // let isEmpty = Object.values(obj).find(x => x === null || x === "")
         let isEmpty = Object.values(obj).filter(x => x === null || x === "")
         let userByEmail = this.data.find(myObj => myObj.email === obj.email)
         let userByMatric = this.data.find(myObj => myObj.matricNumber === obj.matricNumber)
@@ -66,7 +65,7 @@ class Users extends DataModel {
             this.errors.push("Password should have at least 7 characters")
         }
 
-        if (isEmpty.length > 0 || userByEmail || userByMatric || obj.password.length < 7) {
+        if (this.errors.length === 0) {
             return false
         } else {
             return true
