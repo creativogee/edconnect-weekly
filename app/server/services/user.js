@@ -36,13 +36,13 @@ const create = async ({
 
 /* Authenticate a user */
 const authenticate = async (email, password) => {
-  console.log(email)
-  const validUser = await User.findOne({ email })
-  console.log(validUser)
-  const mine = User.validPassword(password)
-  console.log(mine)
-  const isValid = validUser.password === mine
+  let validUser, validPassword
+  validUser = await User.findOne({ email })
+  if (validUser) {
+    validPassword = User.validPassword(validUser, password)
+  }
 
+  const isValid = validUser.password === validPassword
   if (isValid) {
     return [true, validUser]
   } else {

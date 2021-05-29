@@ -48,10 +48,12 @@ router.get("/login", (req, res) => {
   }
 })
 
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body
-  const isValid = User.authenticate(email, password)
-  if (isValid[0] === true) {
+  const isValid = await User.authenticate(email, password)
+  console.log(isValid)
+
+  if (isValid[0]) {
     req.session.user = isValid[1]
     res.redirect("/")
   } else {
