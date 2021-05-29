@@ -36,16 +36,25 @@ const create = async ({
 
 /* Authenticate a user */
 const authenticate = async (email, password) => {
-  let validUser, validPassword
-  validUser = await User.findOne({ email })
-  if (validUser) {
-    validPassword = User.validPassword(validUser, password)
-  }
+  try {
+    let validUser, validPassword
 
-  const isValid = validUser.password === validPassword
-  if (isValid) {
+    validUser = await User.findOne({ email })
+
+    if (!validUser) {
+      throw "error"
+    }
+
+    validPassword = User.validPassword(validUser, password)
+
+    const isValid = validUser.password === validPassword
+
+    if (!isValid) {
+      throw "error"
+    }
+
     return [true, validUser]
-  } else {
+  } catch (e) {
     return [false, ["Invalid email/password"]]
   }
 }
