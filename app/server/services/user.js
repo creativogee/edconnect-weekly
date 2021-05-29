@@ -1,20 +1,9 @@
 // imports
-const fs = require("fs");
-const path = require("path");
-const Users = require("../models/users").Users;
-const User = require("../models/users").User;
-
-// load data file
-const usersFile = path.join(__dirname, "../users.json");
-
-// helper functions
-const saveJsonFile = (file, data) => fs.writeFileSync(file, JSON.stringify({ data }));
-const getFileAsJson = (file) => JSON.parse(fs.readFileSync(file));
-const saveUsersToFile = (data) => saveJsonFile(usersFile, data);
-const id = () => Math.random().toString(36).substring(2);
+const User = require("../models/user")
+const helper = require("../models/mongo_helper")
 
 /* Creates new user */
-const create = ({
+const create = async ({
   firstname,
   lastname,
   email,
@@ -23,62 +12,57 @@ const create = ({
   program,
   graduationYear,
 }) => {
-  // populate users with data from file.
-  const users = new Users();
-  users.data = getFileAsJson(usersFile).data;
+  try {
+    const user = new User({
+      firstname,
+      lastname,
+      email,
+      password,
+      matricNumber,
+      program,
+      graduationYear,
+    })
+    user.setPassword(password)
 
-  const user = new User(
-    id(),
-    firstname,
-    lastname,
-    email,
-    password,
-    matricNumber,
-    program,
-    graduationYear
-  );
-  if (users.save(user)) {
-    saveUsersToFile(users.data);
-    return [true, user];
-  } else {
-    return [false, users.errors];
+    const newUser = await user.save()
+
+    if (newUser) {
+      return [true, user]
+    }
+  } catch (e) {
+    return [false, helper.translateError(e)]
   }
-};
+}
 
 /* Authenticate a user */
-const authenticate = (email, password) => {
-  // populate users with data from file.
-  const users = new Users();
-  users.data = getFileAsJson(usersFile).data;
+const authenticate = async (email, password) => {
+  console.log(email)
+  const validUser = await User.findOne({ email })
+  console.log(validUser)
+  const mine = User.validPassword(password)
+  console.log(mine)
+  const isValid = validUser.password === mine
 
-  if (users.authenticate(email, password)) {
-    return [true, users.getByEmail(email)];
+  if (isValid) {
+    return [true, validUser]
   } else {
-    return [false, ["Invalid email/password"]];
+    return [false, ["Invalid email/password"]]
   }
-};
+}
 
 /* Return user with specified id */
-const getById = (id) => {
-  // populate users with data from file.
-  const users = new Users();
-  users.data = getFileAsJson(usersFile).data;
-
-  return users.getById(id);
-};
+const getById = async (id) => {
+  return await User.findById(id)
+}
 
 /* Return all users */
-const getAll = () => {
-  // populate users with data from file.
-  const users = new Users();
-  users.data = getFileAsJson(usersFile).data;
-
-  return users.getAll();
-};
+const getAll = async () => {
+  return await User.find()
+}
 
 module.exports = {
   create,
   authenticate,
   getById,
   getAll,
-};
+}

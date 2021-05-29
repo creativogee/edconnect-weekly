@@ -1,6 +1,7 @@
 require("dotenv").config()
 
 const express = require("express")
+const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const morgan = require("morgan")
 const session = require("express-session")
@@ -8,6 +9,8 @@ const flash = require("express-flash")
 const app = express()
 
 const register = require("@react-ssr/express/register")
+
+const SERVER_PORT = process.env.SERVER_PORT
 
 register(app).then(() => {
   app.use((req, res, next) => {
@@ -37,10 +40,31 @@ register(app).then(() => {
   )
 
   app.use("/api", require("./routes/api"))
-  // app.use(express.static("public"))
   app.use("/", require("./controllers/home"))
   app.use("/", require("./controllers/user"))
   app.use("/", require("./controllers/project"))
+  app.use(express.static("public"))
   app.listen(SERVER_PORT, () => console.log("Server listening on port " + SERVER_PORT))
 })
-const SERVER_PORT = process.env.SERVER_PORT
+
+mongoose.set("bufferCommands", false)
+
+mongoose.connect(
+  process.env.MONGODB_URI, // connection string from .env file
+
+  {
+    useNewUrlParser: true,
+
+    useUnifiedTopology: true,
+
+    useCreateIndex: true,
+  },
+
+  (err) => {
+    if (err) {
+      console.log("Error connecting to db: ", err)
+    } else {
+      console.log(`Connected to MongoDB @ ${process.env.MONGODB_URI}`)
+    }
+  }
+)

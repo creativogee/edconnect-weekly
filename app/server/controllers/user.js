@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+const User = require("../services/user")
 
 router.get("/signup", (req, res) => {
   const user = req.session.user
@@ -23,12 +24,11 @@ router.get("/signup", (req, res) => {
   }
 })
 
-router.post("/signup", (req, res) => {
-  const response = require("../services/user")
+router.post("/signup", async (req, res) => {
   const { firstName, lastName, ...others } = req.body
   const body = { firstname: firstName, lastname: lastName, ...others }
-  const user = response.create(body)
-  if (user[0] === true) {
+  const user = await User.create(body)
+  if (user[0]) {
     req.session.user = user[1]
     res.redirect("/")
   } else {
@@ -50,8 +50,7 @@ router.get("/login", (req, res) => {
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body
-  const response = require("../services/user")
-  const isValid = response.authenticate(email, password)
+  const isValid = User.authenticate(email, password)
   if (isValid[0] === true) {
     req.session.user = isValid[1]
     res.redirect("/")
