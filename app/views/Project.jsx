@@ -19,10 +19,12 @@ const Project = ({ project, user, creator }) => {
                 Created by: <br /> {creator?.firstname + " " + creator?.lastname}
               </Col>
               <Col>
-                Date created: <br /> 2020-01-12
+                <p>Date Created</p>
+                <p>{new Date(props.props1.createdAt).toLocaleDateString()}</p>
               </Col>
               <Col>
-                Last updated: <br /> 2021-03-29
+                <p>Last Updated</p>
+                <p>{new Date(props.props1.updatedAt).toLocaleDateString()}</p>
               </Col>
               <Button href="/createproject" className="align-middle pt-2">
                 Edit Project
