@@ -1,9 +1,9 @@
 const express = require("express")
 const router = express.Router()
+const project = require("../services/project")
 
-router.get("/", (req, res) => {
-  const response = require("../services/project")
-  const data = response.getAll()
+router.get("/", async (req, res) => {
+  const data = await project.getAll()
   const user = req.session.user
 
   if (user) {

@@ -1,59 +1,36 @@
 // imports
-const fs = require("fs");
-const path = require("path");
-const Projects = require("../models/projects").Projects;
-const Project = require("../models/projects").Project;
-
-// load data file
-const projectsFile = path.join(__dirname, "../projects.json");
-
-// helper functions
-const saveJsonFile = (file, data) => fs.writeFileSync(file, JSON.stringify({ data }));
-const getFileAsJson = (file) => JSON.parse(fs.readFileSync(file));
-const saveProjectsToFile = (data) => saveJsonFile(projectsFile, data);
-const id = () => Math.random().toString(36).substring(2);
+const Project = require("../models/project")
+const helper = require("../models/mongo_helper")
 
 /* Create new project */
-const create = ({ name, abstract, authors, tags, createdBy }) => {
-  // populate projects with data from file.
-  const projects = new Projects();
-  projects.data = getFileAsJson(projectsFile).data;
+const create = async ({ name, abstract, authors, tags, createdBy }) => {
+  try {
+    const project = new Project({ name, abstract, authors, tags, createdBy })
 
-  const project = new Project(
-    id(),
-    name,
-    abstract,
-    authors,
-    tags,
-    createdBy
-  );
-  if (projects.save(project)) {
-    saveProjectsToFile(projects.data);
-    return [true, project];
-  } else {
-    return [false, projects.errors];
+    const newProject = await project.save(project)
+
+    if (!newProject) {
+      throw "project create unsuccessful"
+    }
+
+    return [true, project]
+  } catch (e) {
+    return [false, helper.translateError(e)]
   }
-};
+}
 
 /* Return project with specified id */
-const getById = (id) => {
-  // populate projects with data from file.
-  const projects = new Projects();
-  projects.data = getFileAsJson(projectsFile).data;
+const getById = async (id) => {
+  return await Project.findOne(id)
+}
 
-  return projects.getById(id);
-};
 /* Return all projects */
-const getAll = () => {
-  // populate projects with data from file.
-  const projects = new Projects();
-  projects.data = getFileAsJson(projectsFile).data;
-
-  return projects.getAll();
-};
+const getAll = async () => {
+  return await Project.find()
+}
 
 module.exports = {
   getAll,
   create,
-  getById
-};
+  getById,
+}
