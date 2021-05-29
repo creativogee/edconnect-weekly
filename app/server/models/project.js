@@ -22,12 +22,15 @@ const ProjectSchema = new Schema(
       lowercase: true,
       trim: true,
     },
+
     tags: [String],
+
     createdBy: {
       type: mongoose.ObjectId,
       required: [true, "please enter creator's name"],
       lowercase: true,
       trim: true,
+      ref: "user",
     },
   },
   { timestamps: true }

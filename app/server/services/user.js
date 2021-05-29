@@ -42,7 +42,7 @@ const authenticate = async (email, password) => {
     validUser = await User.findOne({ email })
 
     if (!validUser) {
-      throw "error"
+      throw "UserLoginError"
     }
 
     validPassword = User.validPassword(validUser, password)
@@ -50,12 +50,14 @@ const authenticate = async (email, password) => {
     const isValid = validUser.password === validPassword
 
     if (!isValid) {
-      throw "error"
+      throw "UserLoginError"
     }
 
     return [true, validUser]
   } catch (e) {
-    return [false, ["Invalid email/password"]]
+    if (e === "UserLoginError") {
+      return [false, ["Invalid email/password"]]
+    }
   }
 }
 

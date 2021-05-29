@@ -1,5 +1,7 @@
 const express = require("express")
 const router = express.Router()
+const projectRes = require("../services/project")
+const userRes = require("../services/user")
 
 router.get("/projects/submit", (req, res) => {
   const user = req.session.user
@@ -17,33 +19,38 @@ router.get("/projects/submit", (req, res) => {
   }
 })
 
-router.post("/projects/submit", (req, res) => {
-  const response = require("../services/project")
-  const { tags, authors, id, ...others } = req.body
-  const tagsArr = tags.split(", ")
-  const authorsArr = authors.split(", ")
+router.post("/projects/submit", async (req, res) => {
+  try {
+    const { body } = req
+    const { name, abstract } = body
+    const tags = body.tags.split(", ")
+    const authors = body.authors.split(", ")
 
-  const project = response.create({
-    tags: tagsArr,
-    authors: authorsArr,
-    createdBy: req.session.user.id,
-    ...others,
-  })
+    const newProject = await projectRes.create({
+      name,
+      abstract,
+      authors,
+      tags,
+      createdBy: req.session.user._id,
+    })
 
-  if (project[0] === true) {
+    if (!newProject[0]) {
+      throw "ProjectCreateError"
+    }
+
     res.redirect("/")
-  } else {
-    req.flash("projectError", JSON.stringify(project[1]))
-    res.redirect(303, "/projects/submit")
+  } catch (e) {
+    if (e === "ProjectCreateError") {
+      req.flash("projectError", JSON.stringify(newProject[1]))
+      res.redirect(303, "/projects/submit")
+    }
   }
 })
 
-router.get("/project/:id", (req, res) => {
-  const projectRes = require("../services/project")
+router.get("/project/:id", async (req, res) => {
   const projectId = req.params.id
   const project = projectRes.getById(projectId)
   const userId = project.createdBy
-  const userRes = require("../services/user")
   const creator = userRes.getById(userId)
   const user = req.session.user
 

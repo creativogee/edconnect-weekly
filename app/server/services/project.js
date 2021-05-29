@@ -7,21 +7,23 @@ const create = async ({ name, abstract, authors, tags, createdBy }) => {
   try {
     const project = new Project({ name, abstract, authors, tags, createdBy })
 
-    const newProject = await project.save(project)
+    const newProject = await project.save()
 
     if (!newProject) {
-      throw "project create unsuccessful"
+      throw "ProjectCreateError"
     }
 
     return [true, project]
   } catch (e) {
-    return [false, helper.translateError(e)]
+    if (e === "ProjectCreateError") {
+      return [false, helper.translateError(e)]
+    }
   }
 }
 
 /* Return project with specified id */
 const getById = async (id) => {
-  return await Project.findOne(id)
+  return await Project.findById(id).populate("createdBy")
 }
 
 /* Return all projects */
