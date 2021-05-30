@@ -45,26 +45,25 @@ register(app).then(() => {
   app.use("/", require("./controllers/project"))
   app.use(express.static("public"))
   app.listen(SERVER_PORT, () => console.log("Server listening on port " + SERVER_PORT))
-})
+  mongoose.set("bufferCommands", false)
 
-mongoose.set("bufferCommands", false)
+  mongoose.connect(
+    process.env.MONGODB_URI, // connection string from .env file
 
-mongoose.connect(
-  process.env.MONGODB_URI, // connection string from .env file
+    {
+      useNewUrlParser: true,
 
-  {
-    useNewUrlParser: true,
+      useUnifiedTopology: true,
 
-    useUnifiedTopology: true,
+      useCreateIndex: true,
+    },
 
-    useCreateIndex: true,
-  },
-
-  (err) => {
-    if (err) {
-      console.log("Error connecting to db: ", err)
-    } else {
-      console.log(`Connected to MongoDB @ ${process.env.MONGODB_URI}`)
+    (err) => {
+      if (err) {
+        console.log("Error connecting to db: ", err)
+      } else {
+        console.log(`Connected to MongoDB @ ${process.env.MONGODB_URI}`)
+      }
     }
-  }
-)
+  )
+})
