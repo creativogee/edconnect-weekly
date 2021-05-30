@@ -30,7 +30,6 @@ const ProjectSchema = new Schema(
       required: [true, "please enter creator's name"],
       lowercase: true,
       trim: true,
-      ref: "user",
     },
   },
   { timestamps: true }

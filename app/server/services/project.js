@@ -23,7 +23,7 @@ const create = async ({ name, abstract, authors, tags, createdBy }) => {
 
 /* Return project with specified id */
 const getById = async (id) => {
-  return await Project.findById(id).populate("createdBy")
+  return await Project.findById(id)
 }
 
 /* Return all projects */

@@ -49,9 +49,9 @@ router.post("/projects/submit", async (req, res) => {
 
 router.get("/project/:id", async (req, res) => {
   const projectId = req.params.id
-  const project = projectRes.getById(projectId)
+  const project = await projectRes.getById(projectId)
   const userId = project.createdBy
-  const creator = userRes.getById(userId)
+  const creator = await userRes.getById(userId)
   const user = req.session.user
 
   if (!project) {

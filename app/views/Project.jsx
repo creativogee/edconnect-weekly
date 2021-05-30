@@ -20,11 +20,11 @@ const Project = ({ project, user, creator }) => {
               </Col>
               <Col>
                 <p>Date Created</p>
-                <p>{new Date(props.props1.createdAt).toLocaleDateString()}</p>
+                <p>{new Date(project.createdAt).toLocaleDateString()}</p>
               </Col>
               <Col>
                 <p>Last Updated</p>
-                <p>{new Date(props.props1.updatedAt).toLocaleDateString()}</p>
+                <p>{new Date(project.updatedAt).toLocaleDateString()}</p>
               </Col>
               <Button href="/createproject" className="align-middle pt-2">
                 Edit Project
@@ -109,7 +109,7 @@ const Project = ({ project, user, creator }) => {
 
                   <Card.Footer id="project_tags">
                     {project?.tags.map((tag, index) => (
-                      <span key={index}>#{tag}</span>
+                      <span key={index}>{tag}</span>
                     ))}
                   </Card.Footer>
                 </Card>
