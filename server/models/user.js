@@ -44,6 +44,11 @@ const UserSchema = new Schema(
     facebookId: String,
 
     googleId: String,
+
+    resetPasswordToken: {
+      data: String,
+      default: "",
+    },
   },
 
   { timestamps: true }

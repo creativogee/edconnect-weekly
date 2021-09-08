@@ -1,5 +1,9 @@
 const express = require("express")
 const router = express.Router()
+const { createEmail } = require("../services/mailer")
+const User = require("../services/user")
+const jwt = require("jsonwebtoken")
+const store = require("store")
 
 router.get("/signup", (req, res) => {
   const user = req.session.user
@@ -38,9 +42,9 @@ router.post("/signup", async (req, res) => {
   }
 })
 
-
 router.get("/login", (req, res) => {
   const user = req.session.user
+  console.log("user:", user)
   const error = req.flash("loginError")[0]
   if (user) {
     res.render("Login", { error, user })
@@ -59,6 +63,65 @@ router.post("/login", async (req, res) => {
   } else {
     req.flash("loginError", "true")
     res.redirect(303, "/login")
+  }
+})
+
+router.get("/forgot-password", async (req, res) => {
+  res.render("ForgotPassword")
+})
+
+router.post("/forgot-password", async (req, res) => {
+  try {
+    const email = req.body.email
+    const user = await User.getUser({ email })
+    if (!user) {
+      res.render("ForgotPassword", { error: "User does not exist", userEmail: email })
+    }
+
+    if (user) {
+      const token = jwt.sign({ _id: user._id }, process.env.RESET_PASSWORD_SECRET, {
+        expiresIn: "30m",
+      })
+      await User.updateUser(user._id, token)
+      // await User.updateUser({ resetPasswordToken: token })
+      await createEmail(email, token)
+      res.render("ForgotPassword", { userEmail: email })
+    }
+  } catch (e) {
+    console.log(e.message)
+  }
+})
+
+router.get("/reset-password/:token", (req, res) => {
+  const token = req.params.token
+  store.set("rpt", token)
+  res.render("ResetPassword", { token })
+})
+
+router.post("/reset-password", async (req, res) => {
+  try {
+    const { password, confirmPassword } = req.body
+
+    if (password.length < 7) {
+      throw Error("Password is too short")
+    }
+
+    if (password !== confirmPassword) {
+      throw Error("Passwords do not match")
+    }
+
+    const token = store.get("rpt")
+    if (token) {
+      const decoded = jwt.verify(token, process.env.RESET_PASSWORD_SECRET)
+      User.updatePassword(decoded._id, password)
+      store.remove("rpt")
+      res.redirect("/login")
+    } else {
+      throw Error("Invalid or expired token")
+    }
+  } catch (e) {
+    console.log(e.message)
+    res.render("ResetPassword", { error: e.message })
   }
 })
 

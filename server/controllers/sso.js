@@ -19,7 +19,6 @@ router.get(
   "/auth/google/project-explorer",
   passport.authenticate("google", { failureRedirect: "/login" }),
   function (req, res) {
-    // Successful authentication, redirect home.
     req.session.user = req.user
     res.redirect("/")
   }

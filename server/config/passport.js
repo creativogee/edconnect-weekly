@@ -58,8 +58,12 @@ const googleVerify = async (accessToken, refreshToken, profile, done) => {
       email,
       googleId: sub,
     }
-    const user = (await User.create(body))[1]
-    done(null, user)
+    const user = await User.create(body)
+    if (user[0]) {
+      done(null, user[1])
+    } else {
+      done("Oops! Sorry you cannot sign up with google")
+    }
   }
 }
 

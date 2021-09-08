@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Alert, Button, Form, Row, Col } from "react-bootstrap"
+import { Alert, Button, Form, Row, Col, Nav } from "react-bootstrap"
 import Layout from "./shared/Layout"
 
 const Login = ({ error, user }) => {
@@ -51,9 +51,22 @@ const Login = ({ error, user }) => {
                 />
               </Col>
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Login
-            </Button>
+            <div className="d-flex justify-content-between">
+              <div>
+                <Button className="pl-4 pr-4" variant="primary" type="submit">
+                  Login
+                </Button>
+                <Nav.Link className="d-inline" href="/forgot-password">
+                  Forgot Password?
+                </Nav.Link>
+              </div>
+              <div>
+                <Button href="/auth/facebook">Login with Facebook</Button>
+                <Button className="ml-3" href="/auth/google">
+                  Login with Google
+                </Button>
+              </div>
+            </div>
           </Form>
         </div>
       </main>

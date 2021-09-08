@@ -1,4 +1,5 @@
 // imports
+const mongoose = require("mongoose")
 const User = require("../models/user")
 const helper = require("../models/mongo_helper")
 
@@ -85,10 +86,30 @@ const getAll = async () => {
   return await User.find()
 }
 
+const getUser = async obj => {
+  const user = await User.findOne({ ...obj })
+  return user
+}
+
+const updateUser = async (id, token) => {
+  const user = await User.findById(id)
+  return await user.updateOne({ resetPasswordToken: token })
+}
+
+const updatePassword = async (id, pwd) => {
+  const user = await User.findById(id)
+  await user.setPassword(pwd)
+  user.updateOne({ resetPasswordToken: "" })
+  user.save()
+}
+
 module.exports = {
   create,
   authenticate,
   getById,
   getAll,
   findByProviderId,
+  getUser,
+  updateUser,
+  updatePassword,
 }

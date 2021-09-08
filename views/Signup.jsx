@@ -148,16 +148,16 @@ const Signup = ({ programs, graduationYears, error, input, user }) => {
                 </Form.Control>
               </Col>
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Sign Up
-            </Button>
-            <div className="d-flex justify-content-between align-items-center flex-column">
-              <Button className="w-50 mt-3" href="/auth/facebook">
-                Sign Up with Facebook
+            <div className="d-flex justify-content-between">
+              <Button variant="primary" type="submit">
+                Sign Up
               </Button>
-              <Button className="w-50 mt-3" href="/auth/google">
-                Sign Up with Google
-              </Button>
+              <div>
+                <Button href="/auth/facebook">Sign Up with Facebook</Button>
+                <Button className="ml-3" href="/auth/google">
+                  Sign Up with Google
+                </Button>
+              </div>
             </div>
           </Form>
         </div>
