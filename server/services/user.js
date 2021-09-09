@@ -2,6 +2,7 @@
 const mongoose = require("mongoose")
 const User = require("../models/user")
 const helper = require("../models/mongo_helper")
+const crypto = require("crypto")
 
 /* Creates new user */
 const create = async ({
@@ -91,16 +92,27 @@ const getUser = async obj => {
   return user
 }
 
-const updateUser = async (id, token) => {
+const updateUserToken = async (id, token) => {
   const user = await User.findById(id)
   return await user.updateOne({ resetPasswordToken: token })
+}
+
+const updateUser = async (id, data) => {
+  const user = await User.findById(id)
+  return await user.updateOne({ ...data })
 }
 
 const updatePassword = async (id, pwd) => {
   const user = await User.findById(id)
   await user.setPassword(pwd)
-  user.updateOne({ resetPasswordToken: "" })
+  user.resetPasswordToken = ""
   user.save()
+}
+
+const confirmPassword = async (id, pwd) => {
+  const user = await User.findById(id)
+  const newHash = crypto.pbkdf2Sync(pwd, user.salt, 1000, 64, "sha512").toString("hex")
+  return user.password === newHash
 }
 
 module.exports = {
@@ -111,5 +123,7 @@ module.exports = {
   findByProviderId,
   getUser,
   updateUser,
+  updateUserToken,
   updatePassword,
+  confirmPassword,
 }

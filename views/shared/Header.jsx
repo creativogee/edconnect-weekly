@@ -20,7 +20,7 @@ const Header = ({ user }) => {
       {user ? (
         <Nav className="justify-content-end">
           <Nav.Link href="/logout">Logout</Nav.Link>
-          <Nav.Link id="username">{`Hi ${user.firstname}`}</Nav.Link>
+          <Nav.Link id="username" href="/profile">{`Hi ${user.firstname}`}</Nav.Link>
         </Nav>
       ) : (
         <Nav className="justify-content-end">

@@ -8,8 +8,13 @@ router.get(
   "/auth/facebook/project-explorer",
   passport.authenticate("facebook", { failureRedirect: "/login" }),
   function (req, res) {
-    req.session.user = req.user
-    res.redirect("/")
+    const { user } = req
+    req.session.user = user
+    if (!user.graduationYear && !user.matricNumber && !user.program) {
+      res.redirect("/profile")
+    } else {
+      res.redirect("/")
+    }
   }
 )
 
@@ -19,8 +24,13 @@ router.get(
   "/auth/google/project-explorer",
   passport.authenticate("google", { failureRedirect: "/login" }),
   function (req, res) {
-    req.session.user = req.user
-    res.redirect("/")
+    const { user } = req
+    req.session.user = user
+    if (!user.graduationYear && !user.matricNumber && !user.program) {
+      res.redirect("/profile")
+    } else {
+      res.redirect("/")
+    }
   }
 )
 

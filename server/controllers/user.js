@@ -5,11 +5,12 @@ const User = require("../services/user")
 const jwt = require("jsonwebtoken")
 const store = require("store")
 
+const response = require("../services/school")
+const programs = response.getPrograms()
+const graduationYears = response.getGradYears()
+
 router.get("/signup", (req, res) => {
   const user = req.session.user
-  const response = require("../services/school")
-  const programs = response.getPrograms()
-  const graduationYears = response.getGradYears()
   const errorJson = req.flash("signupError")[0]
   const inputJson = req.flash("signupInput")[0]
 
@@ -44,7 +45,6 @@ router.post("/signup", async (req, res) => {
 
 router.get("/login", (req, res) => {
   const user = req.session.user
-  console.log("user:", user)
   const error = req.flash("loginError")[0]
   if (user) {
     res.render("Login", { error, user })
@@ -82,8 +82,7 @@ router.post("/forgot-password", async (req, res) => {
       const token = jwt.sign({ _id: user._id }, process.env.RESET_PASSWORD_SECRET, {
         expiresIn: "30m",
       })
-      await User.updateUser(user._id, token)
-      // await User.updateUser({ resetPasswordToken: token })
+      await User.updateUserToken(user._id, token)
       await createEmail(email, token)
       res.render("ForgotPassword", { userEmail: email })
     }
@@ -122,6 +121,74 @@ router.post("/reset-password", async (req, res) => {
   } catch (e) {
     console.log(e.message)
     res.render("ResetPassword", { error: e.message })
+  }
+})
+
+router.get("/profile", async (req, res) => {
+  try {
+    const user = store.get("update") ?? req.session.user
+    const yikes = req.flash("changePassError")[0]
+    if (!user) {
+      res.redirect("/login")
+    } else {
+      res.render("Profile", { user, programs, graduationYears, yikes })
+    }
+  } catch (e) {
+    console.log(e.message)
+  }
+})
+
+router.post("/profile", async (req, res) => {
+  try {
+    const id = req.session.user._id
+
+    const { body } = req
+    let program = body.program
+    let graduationYear = body.graduationYear
+    const { firstName, lastName, email, matricNumber } = req.body
+
+    //Handling lack of selection from the client
+    if (graduationYear === "Select Graduation Year") {
+      graduationYear = ""
+    }
+    if (program === "Select Program") {
+      program = ""
+    }
+
+    const user = {
+      matricNumber,
+      graduationYear,
+      program,
+      email,
+      firstname: firstName,
+      lastname: lastName,
+    }
+    //update user's document with the fields defined in the user object
+    await User.updateUser(id, user)
+
+    //store user object in local storage
+    store.set("update", user)
+
+    const succ = "Updated Successful!"
+    res.render("Profile", { user, programs, graduationYears, succ })
+  } catch (e) {
+    console.log(e.message)
+  }
+})
+
+router.post("/change-password", async (req, res) => {
+  try {
+    const id = req.session.user._id
+    const response = await User.confirmPassword(id, req.body.currentPassword)
+    if (!response) {
+      req.flash("changePassError", "Current password is incorrect")
+      res.redirect(303, "/profile")
+    } else {
+      await User.updatePassword(id, req.body.newPassword)
+      res.redirect("/profile")
+    }
+  } catch (e) {
+    console.log(e.message)
   }
 })
 
