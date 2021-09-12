@@ -42,7 +42,7 @@ const sendEmail = async (receiver, token) => {
       html: `
       <h3> Hi there!</h3>
       <p> Please click on this link below to reset your password</p>
-      <a href="${baseUrl}/${token}"> Click Here</a> 
+      <a href="${baseUrl}/reset-password/${token}"> Click Here</a> 
       `,
     }
     return await transport.sendMail(mailOptions)

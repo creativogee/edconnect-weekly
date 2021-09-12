@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Button, Card, Col, Container, Form, Row, Image } from "react-bootstrap"
 import Layout from "./shared/Layout"
 
-const Project = ({ project, user, creator, profileImage }) => {
+const Project = ({ project, user, creator, authorImage }) => {
   return (
     <Layout user={user}>
       <div className="mx-auto mt-5">
@@ -16,7 +16,7 @@ const Project = ({ project, user, creator, profileImage }) => {
           <Row className="bg-light p-3">
             <Col id="project_author" className="d-flex">
               <Image
-                src={`${profileImage}`}
+                src={`${authorImage}`}
                 roundedCircle
                 style={{ height: 3 + "rem", width: 3 + "rem", marginRight: 10 + "px" }}
               ></Image>
@@ -33,7 +33,7 @@ const Project = ({ project, user, creator, profileImage }) => {
               <span>Last Updated</span>
               <span>{new Date(project.updatedAt).toLocaleDateString()}</span>
             </Col>
-            <Button href="/createproject" className="align-middle pt-2">
+            <Button href="/projects/submit" className="align-middle pt-2">
               Edit Project
             </Button>
           </Row>

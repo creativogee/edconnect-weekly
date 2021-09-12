@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import Layout from "./shared/Layout"
 import { Alert, Button, Col, Form, Row, Nav } from "react-bootstrap"
 
-const Profile = ({ user, programs, graduationYears, succ, err, yikes }) => {
+const Profile = ({ user, programs, graduationYears, succ, oldUser, yikes }) => {
   const [firstName, setFirstName] = useState(user?.firstname)
   const [lastName, setLastName] = useState(user?.lastname)
   const [email, setEmail] = useState(user?.email)
@@ -66,6 +66,11 @@ const Profile = ({ user, programs, graduationYears, succ, err, yikes }) => {
   return (
     <Layout user={user ? user : null}>
       <main>
+        {!oldUser && !(matricNumber && graduationYear && program) && (
+          <Alert variant="warning" className="text-center">
+            Please complete your registration!
+          </Alert>
+        )}
         <div className="mx-auto w-50 p-2 mt-5">
           <div className="d-flex align-items-end mb-2">
             <h4 className="mr-2">{displayInfo.firstName + " " + displayInfo.lastName}</h4>

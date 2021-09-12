@@ -23,6 +23,12 @@ const ProjectSchema = new Schema(
       trim: true,
     },
 
+    authorImage: {
+      type: String,
+      default:
+        "https://spng.pngfind.com/pngs/s/500-5008297_lars-christian-larsen-user-profile-image-png-transparent.png",
+    },
+
     tags: [String],
 
     createdBy: {

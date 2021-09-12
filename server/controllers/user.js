@@ -100,7 +100,7 @@ router.post("/forgot-password", async (req, res) => {
 
 router.get("/reset-password/:token", (req, res) => {
   const token = req.params.token
-  //better stored in local storage in case tab is closed
+  //stored in local storage in case tab is closed
   //token expires anyway
   store.set("rpt", token)
   res.render("ResetPassword", { baseUrl })
@@ -135,7 +135,7 @@ router.post("/reset-password", async (req, res) => {
 
 router.get("/profile", async (req, res) => {
   try {
-    const user = store.get("update") ?? req.session.user
+    const user = await User.getById(req.session.user._id)
     const yikes = req.flash("changePassError")[0]
     if (!user) {
       res.redirect("/login")
@@ -147,15 +147,12 @@ router.get("/profile", async (req, res) => {
   }
 })
 
-router.post("/profile", async (req, res) => {
+router.post("/profile", parser.single("profileImage"), async (req, res) => {
   try {
     const id = req.session.user._id
 
-    const { body } = req
-    let program = body.program
-    let graduationYear = body.graduationYear
-    const { firstName, lastName, email, matricNumber } = req.body
-
+    const { firstName, lastName } = req.body
+    let graduationYear, program
     //Handling lack of selection from the client
     if (graduationYear === "Select Graduation Year") {
       graduationYear = ""
@@ -163,24 +160,26 @@ router.post("/profile", async (req, res) => {
     if (program === "Select Program") {
       program = ""
     }
-
+    const oldUser = await User.getById(id)
     const user = {
-      matricNumber,
-      graduationYear,
       program,
-      email,
+      graduationYear,
       firstname: firstName,
       lastname: lastName,
+      profileImage: oldUser.profileImage,
+      ...req.body,
     }
 
-    if (req.file.path) {
+    if (
+      req.file &&
+      req.file.path !==
+        "https://spng.pngfind.com/pngs/s/500-5008297_lars-christian-larsen-user-profile-image-png-transparent.png"
+    ) {
       user.profileImage = req.file.path
     }
+
     //update user's document with the fields defined in the user object
     await User.updateUser(id, user)
-
-    //store user object in local storage
-    store.set("update", user)
 
     const succ = "Updated Successful!"
     res.render("Profile", { user, programs, graduationYears, succ })
@@ -206,10 +205,10 @@ router.post("/change-password", async (req, res) => {
   }
 })
 
-router.post("/upload", parser.single("profileImage"), async (req, res) => {
-  try {
-    console.log(req.file)
-  } catch (e) {}
-})
+// router.post("/upload", parser.single("profileImage"), async (req, res) => {
+//   try {
+//     console.log(req.file)
+//   } catch (e) {}
+// })
 
 module.exports = router

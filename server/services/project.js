@@ -3,9 +3,9 @@ const Project = require("../models/project")
 const helper = require("../models/mongo_helper")
 
 /* Create new project */
-const create = async ({ name, abstract, authors, tags, createdBy }) => {
+const create = async ({ name, abstract, authors, tags, createdBy, authorImage }) => {
   try {
-    const project = new Project({ name, abstract, authors, tags, createdBy })
+    const project = new Project({ name, abstract, authors, tags, createdBy, authorImage })
 
     const newProject = await project.save()
 
@@ -22,7 +22,7 @@ const create = async ({ name, abstract, authors, tags, createdBy }) => {
 }
 
 /* Return project with specified id */
-const getById = async (id) => {
+const getById = async id => {
   return await Project.findById(id)
 }
 

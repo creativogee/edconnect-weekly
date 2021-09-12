@@ -1,9 +1,9 @@
 const express = require("express")
 const router = express.Router()
 const projectRes = require("../services/project")
-const userRes = require("../services/user")
+const User = require("../services/user")
 
-router.get("/projects/submit", (req, res) => {
+router.get("/projects/submit", async (req, res) => {
   const user = req.session.user
   const errorJson = req.flash("projectError")
 
@@ -25,12 +25,15 @@ router.post("/projects/submit", async (req, res) => {
     const { name, abstract } = body
     const tags = body.tags.split(", ")
     const authors = body.authors.split(", ")
+    const user = await User.getById(req.session.user._id)
+    const authorImage = user.profileImage
 
     const newProject = await projectRes.create({
       name,
       abstract,
       authors,
       tags,
+      authorImage,
       createdBy: req.session.user._id,
     })
 
@@ -51,17 +54,18 @@ router.get("/project/:id", async (req, res) => {
   const projectId = req.params.id
   const project = await projectRes.getById(projectId)
   const userId = project.createdBy
-  const creator = await userRes.getById(userId)
-  const user = req.session.user
-  const { profileImage } = user
+  const user = await User.getById(userId)
+  const creator = { firstname: user.firstname, lastname: user.lastname }
+  const authorImage = project?.authorImage
+  const oldUser = true
 
   if (!project) {
     res.redirect("/")
   }
-  if (user) {
-    res.render("Project", { project, user, creator, profileImage })
+  if (req.session.user) {
+    res.render("Project", { project, user, creator, authorImage, oldUser })
   } else {
-    res.render("Project", { project, creator })
+    res.render("Project", { project, creator, authorImage, oldUser })
   }
 })
 

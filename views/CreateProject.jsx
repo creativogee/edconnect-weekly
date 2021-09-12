@@ -2,11 +2,11 @@ import React, { useState } from "react"
 import { Alert, Button, Col, Form, Row } from "react-bootstrap"
 import Layout from "./shared/Layout"
 
-const CreateProject = ({ error, user }) => {
-  const [name, setName] = useState("")
-  const [abstract, setAbstract] = useState("")
-  const [authors, setAuthors] = useState([])
-  const [tags, setTags] = useState([])
+const CreateProject = ({ error, user, project }) => {
+  const [name, setName] = useState(project?.name)
+  const [abstract, setAbstract] = useState(project?.abstract)
+  const [authors, setAuthors] = useState(project?.authors || [])
+  const [tags, setTags] = useState(project?.tags || [])
 
   const handleInput = e => {
     const { id, value } = e.target

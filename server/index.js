@@ -37,6 +37,7 @@ register(app).then(() => {
   morgan("combined", {
     skip: (req, res) => res.statusCode < 400,
   })
+
   app.use(flash())
   app.use(bodyParser.json())
   app.use(
