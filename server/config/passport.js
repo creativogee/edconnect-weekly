@@ -5,18 +5,23 @@ const passport = require("passport")
 const FacebookStrategy = require("passport-facebook").Strategy
 const GoogleStrategy = require("passport-google-oauth20").Strategy
 
+const FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID
+const FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+
 const baseUrl = require("../services/getBaseUrl")
 
 const facebookCreds = {
-  clientID: process.env.FACEBOOK_APP_ID,
-  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  clientID: FACEBOOK_APP_ID,
+  clientSecret: FACEBOOK_APP_SECRET,
   callbackURL: `${baseUrl}/auth/facebook/project-explorer`,
   profileFields: ["id", "first_name", "last_name", "emails"],
 }
 
 const googleCreds = {
-  clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  clientID: GOOGLE_CLIENT_ID,
+  clientSecret: GOOGLE_CLIENT_SECRET,
   callbackURL: `${baseUrl}/auth/google/project-explorer`,
 }
 
@@ -77,6 +82,7 @@ const googleVerify = async (accessToken, refreshToken, profile, done) => {
 
 const facebookStrategy = new FacebookStrategy(facebookCreds, facebookVerify)
 const googleStrategy = new GoogleStrategy(googleCreds, googleVerify)
+
 passport.use(facebookStrategy)
 passport.use(googleStrategy)
 
