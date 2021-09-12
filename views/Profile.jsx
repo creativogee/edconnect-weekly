@@ -13,6 +13,7 @@ const Profile = ({ user, programs, graduationYears, succ, err, yikes }) => {
   const [program, setProgram] = useState(user?.program)
   const [graduationYear, setGraduationYear] = useState(user?.graduationYear)
   const [displayInfo, setDisplayInfo] = useState({})
+  const [profileImage, setProfileImage] = useState("")
 
   useEffect(() => {
     setDisplayInfo({
@@ -55,6 +56,9 @@ const Profile = ({ user, programs, graduationYears, succ, err, yikes }) => {
       case "graduationYear":
         setGraduationYear(value)
         break
+      case "profileImage":
+        setProfileImage(value)
+        break
       default:
     }
   }
@@ -67,7 +71,13 @@ const Profile = ({ user, programs, graduationYears, succ, err, yikes }) => {
             <h4 className="mr-2">{displayInfo.firstName + " " + displayInfo.lastName}</h4>
             <h6 className="text-secondary ">{displayInfo.email}</h6>
           </div>
-          <Form id="userProfile" method="post" action="profile" className="mb-5">
+          <Form
+            id="userProfile"
+            method="post"
+            action="profile"
+            className="mb-5"
+            encType="multipart/form-data"
+          >
             <Row className="bg-light d-flex justify-space-between mb-5 p-2">
               <Col className="d-flex flex-column">
                 <span>Program</span>
@@ -170,8 +180,14 @@ const Profile = ({ user, programs, graduationYears, succ, err, yikes }) => {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="profilePicture">Profile picture:</Form.Label>
-              <Form.Control type="file" />
+              <Form.Label htmlFor="profileImage">Profile picture:</Form.Label>
+              <Form.Control
+                type="file"
+                name="profileImage"
+                value={profileImage}
+                onChange={handleInput}
+                className=" border p-1"
+              />
             </Form.Group>
             <Button variant="primary" type="submit">
               Update Profile

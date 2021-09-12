@@ -53,12 +53,13 @@ router.get("/project/:id", async (req, res) => {
   const userId = project.createdBy
   const creator = await userRes.getById(userId)
   const user = req.session.user
+  const { profileImage } = user
 
   if (!project) {
     res.redirect("/")
   }
   if (user) {
-    res.render("Project", { project, user, creator })
+    res.render("Project", { project, user, creator, profileImage })
   } else {
     res.render("Project", { project, creator })
   }

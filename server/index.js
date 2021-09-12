@@ -6,7 +6,7 @@ const session = require("express-session")
 const MongoDBStore = require("connect-mongodb-session")(session)
 const flash = require("express-flash")
 const passport = require("passport")
-const dbconnection = require("./config/database")
+const { connectDB } = require("./config/database")
 require("./config/passport")
 
 const app = express()
@@ -66,5 +66,5 @@ register(app).then(() => {
   app.listen(SERVER_PORT, () => console.log("Server listening on port " + SERVER_PORT))
 
   //database connection
-  dbconnection()
+  connectDB()
 })

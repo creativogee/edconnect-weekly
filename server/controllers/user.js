@@ -4,6 +4,9 @@ const { createEmail } = require("../services/mailer")
 const User = require("../services/user")
 const jwt = require("jsonwebtoken")
 const store = require("store")
+const multer = require("multer")
+const { storage } = require("../config/cloudinary")
+const parser = multer({ storage })
 
 const response = require("../services/school")
 const programs = response.getPrograms()
@@ -163,6 +166,10 @@ router.post("/profile", async (req, res) => {
       firstname: firstName,
       lastname: lastName,
     }
+
+    if (req.file.path) {
+      user.profileImage = req.file.path
+    }
     //update user's document with the fields defined in the user object
     await User.updateUser(id, user)
 
@@ -190,6 +197,12 @@ router.post("/change-password", async (req, res) => {
   } catch (e) {
     console.log(e.message)
   }
+})
+
+router.post("/upload", parser.single("profileImage"), async (req, res) => {
+  try {
+    console.log(req.file)
+  } catch (e) {}
 })
 
 module.exports = router

@@ -1,5 +1,5 @@
 import React from "react"
-import { Form, Button, Nav, Navbar } from "react-bootstrap"
+import { Form, Button, Nav, Navbar, Image } from "react-bootstrap"
 
 const Header = ({ user }) => {
   return (
@@ -20,7 +20,16 @@ const Header = ({ user }) => {
       {user ? (
         <Nav className="justify-content-end">
           <Nav.Link href="/logout">Logout</Nav.Link>
-          <Nav.Link id="username" href="/profile">{`Hi ${user.firstname}`}</Nav.Link>
+          <Nav.Link
+            id="username"
+            data-testid="username"
+            href="/profile"
+          >{`Hi ${user.firstname}`}</Nav.Link>
+          <Image
+            src={`${user.profileImage}`}
+            roundedCircle
+            style={{ height: 3 + "rem", width: 3 + "rem" }}
+          ></Image>
         </Nav>
       ) : (
         <Nav className="justify-content-end">

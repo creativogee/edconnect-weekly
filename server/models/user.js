@@ -45,6 +45,12 @@ const UserSchema = new Schema(
 
     googleId: String,
 
+    profileImage: {
+      type: String,
+      default:
+        "https://spng.pngfind.com/pngs/s/500-5008297_lars-christian-larsen-user-profile-image-png-transparent.png",
+    },
+
     resetPasswordToken: {
       data: String,
       default: "",

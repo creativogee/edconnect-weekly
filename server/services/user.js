@@ -40,6 +40,14 @@ const create = async ({
   }
 }
 
+const deleteUser = async obj => {
+  try {
+    return await User.deleteOne({ ...obj })
+  } catch (e) {
+    return [false, ["Something went wrong, please try again"]]
+  }
+}
+
 /* Authenticate a user */
 const authenticate = async (email, password) => {
   try {
@@ -117,6 +125,7 @@ const confirmPassword = async (id, pwd) => {
 
 module.exports = {
   create,
+  deleteUser,
   authenticate,
   getById,
   getAll,
