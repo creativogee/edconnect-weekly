@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 const { connectDB, disconnectDB } = require("../../config/database")
 
+//test user
 const userOne = {
   firstname: "logan",
   lastname: "paul",

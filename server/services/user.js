@@ -80,6 +80,12 @@ const getById = async id => {
   return await User.findById(id)
 }
 
+/**
+ *  Checks if a user with the provider id exist in the DB
+ * @param {string} provider This could either be facebook or google
+ * @param {string} _id
+ * @returns user object
+ */
 const findByProviderId = async (provider, _id) => {
   if (provider === "facebook") {
     return await User.find({ facebookId: _id })
@@ -100,6 +106,12 @@ const getUser = async obj => {
   return user
 }
 
+/**
+ * Adds a reset password token to a specified user's document
+ * @param {string} id
+ * @param {string} token
+ * @returns
+ */
 const updateUserToken = async (id, token) => {
   const user = await User.findById(id)
   return await user.updateOne({ resetPasswordToken: token })
@@ -110,6 +122,11 @@ const updateUser = async (id, data) => {
   return await user.updateOne({ ...data })
 }
 
+/**
+ * Updates the user's password with the new one
+ * @param {string} id
+ * @param {string} pwd
+ */
 const updatePassword = async (id, pwd) => {
   const user = await User.findById(id)
   await user.setPassword(pwd)
@@ -117,6 +134,12 @@ const updatePassword = async (id, pwd) => {
   user.save()
 }
 
+/**
+ * Compare provided password with the hashed password from the DB
+ * @param {string} id
+ * @param {string} pwd
+ * @returns boolean
+ */
 const confirmPassword = async (id, pwd) => {
   const user = await User.findById(id)
   const newHash = crypto.pbkdf2Sync(pwd, user.salt, 1000, 64, "sha512").toString("hex")

@@ -20,6 +20,7 @@ const register = require("@react-ssr/express/register")
 
 const SERVER_PORT = process.env.PORT || 80
 
+//created a mongoDB collection to be used as session store
 const store = new MongoDBStore({
   uri: process.env.MONGODB_URI,
   collection: "mySessions",
@@ -32,6 +33,7 @@ register(app).then(() => {
     next()
   })
 
+  //morgan to log only status code >=400, essentially failed requests
   morgan("combined", {
     skip: (req, res) => res.statusCode < 400,
   })
@@ -49,13 +51,17 @@ register(app).then(() => {
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7,
       },
-      store,
+      store, //utilizing above initialized mongodb store
       resave: true,
       saveUninitialized: false,
     })
   )
 
+  /*Initialise the passport module essentially adding the 
+  passport object to the express session*/
   app.use(passport.initialize())
+  /*alter the request object to change the use value from
+  session id to the deserialized user object*/
   app.use(passport.session())
 
   //load in all routes
@@ -65,6 +71,6 @@ register(app).then(() => {
 
   app.listen(SERVER_PORT, () => console.log("Server listening on port " + SERVER_PORT))
 
-  //database connection
+  //database connection facade
   connectDB()
 })

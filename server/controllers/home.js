@@ -15,6 +15,7 @@ router.get("/", async (req, res) => {
 
 router.get("/logout", (req, res) => {
   req.session.destroy()
+  //deletes the upadte JSON from the local storage
   store.remove("update")
 
   res.redirect("/")

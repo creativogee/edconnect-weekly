@@ -1,3 +1,5 @@
+//Refactored and modularized the database config for reusability
+
 require("dotenv").config()
 const mongoose = require("mongoose")
 mongoose.set("bufferCommands", false)
@@ -9,6 +11,7 @@ const mongoDefault = {
   useCreateIndex: true,
 }
 
+//Establish database connection
 const connectDB = async () => {
   try {
     await mongoose.connect(conn, mongoDefault)
@@ -20,6 +23,8 @@ const connectDB = async () => {
     console.log("Database connection failed")
   }
 }
+
+//Terminates connection to database
 const disconnectDB = async () => {
   try {
     await mongoose.connection.close()

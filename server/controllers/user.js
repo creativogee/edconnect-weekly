@@ -1,12 +1,15 @@
+require("dotenv").config()
 const express = require("express")
 const router = express.Router()
-const { createEmail } = require("../services/mailer")
+const { sendEmail } = require("../services/mailer")
 const User = require("../services/user")
 const jwt = require("jsonwebtoken")
 const store = require("store")
 const multer = require("multer")
 const { storage } = require("../config/cloudinary")
 const parser = multer({ storage })
+
+const baseUrl = require("../services/getBaseUrl")
 
 const response = require("../services/school")
 const programs = response.getPrograms()
@@ -82,11 +85,12 @@ router.post("/forgot-password", async (req, res) => {
     }
 
     if (user) {
+      //generates a token that expires after 5 minutes
       const token = jwt.sign({ _id: user._id }, process.env.RESET_PASSWORD_SECRET, {
-        expiresIn: "30m",
+        expiresIn: "5m",
       })
       await User.updateUserToken(user._id, token)
-      await createEmail(email, token)
+      await sendEmail(email, token)
       res.render("ForgotPassword", { userEmail: email })
     }
   } catch (e) {
@@ -96,8 +100,10 @@ router.post("/forgot-password", async (req, res) => {
 
 router.get("/reset-password/:token", (req, res) => {
   const token = req.params.token
+  //better stored in local storage in case tab is closed
+  //token expires anyway
   store.set("rpt", token)
-  res.render("ResetPassword", { token })
+  res.render("ResetPassword", { baseUrl })
 })
 
 router.post("/reset-password", async (req, res) => {
@@ -183,6 +189,7 @@ router.post("/profile", async (req, res) => {
   }
 })
 
+//Password change route
 router.post("/change-password", async (req, res) => {
   try {
     const id = req.session.user._id

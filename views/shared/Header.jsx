@@ -22,7 +22,7 @@ const Header = ({ user }) => {
           <Nav.Link href="/logout">Logout</Nav.Link>
           <Nav.Link
             id="username"
-            data-testid="username"
+            data-testid="username" //added this attribute for element selection in test
             href="/profile"
           >{`Hi ${user.firstname}`}</Nav.Link>
           <Image

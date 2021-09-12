@@ -30,7 +30,7 @@ const Home = ({ data, user }) => {
                 <Card>
                   <Card.Body>
                     <Card.Title>
-                      <a href={`/project/${project.id}`}>{project.name} </a>
+                      <a href={`/project/${project._id}`}>{project.name}</a>
                     </Card.Title>
                     <Card.Text>{project.authors.join(", ")}</Card.Text>
                     <Card.Text>{project.abstract}</Card.Text>

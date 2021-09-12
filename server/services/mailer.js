@@ -1,17 +1,24 @@
+require("dotenv").config()
 const nodemailer = require("nodemailer")
 const { google } = require("googleapis")
 
-const FROM_EMAIL = process.env.FROM_EMAIL
 const REFRESH_TOKEN = process.env.REFRESH_TOKEN
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID2
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET2
 const REDIRECT_URI = "https://developers.google.com/oauthplayground"
 
+const baseUrl = require("../services/getBaseUrl")
+
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
 
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
 
-const createEmail = async (receiver, token) => {
+/**
+ * Sends reset link containing token via email
+ * @param {string} receiver email address of user
+ * @param {string} token
+ */
+const sendEmail = async (receiver, token) => {
   try {
     const accessToken = await oAuth2Client.getAccessToken()
 
@@ -28,14 +35,14 @@ const createEmail = async (receiver, token) => {
     })
 
     let mailOptions = {
-      from: "Creativogee <omowole.gbenga@gmail.com>",
+      from: "Project Explorer <omowole.gbenga@gmail.com>",
       to: receiver,
       subject: "Reset Your Password",
-      text: "Hello from Creativogee",
+      text: "Hello from Project Explorer",
       html: `
       <h3> Hi there!</h3>
       <p> Please click on this link below to reset your password</p>
-      <a href="http://localhost:4000/reset-password/${token}"> Click Here</a>
+      <a href="${baseUrl}/${token}"> Click Here</a> 
       `,
     }
     return await transport.sendMail(mailOptions)
@@ -45,5 +52,5 @@ const createEmail = async (receiver, token) => {
 }
 
 module.exports = {
-  createEmail,
+  sendEmail,
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Button, Form, Row, Col, Alert } from "react-bootstrap"
 import Layout from "./shared/Layout"
 
-const ResetPassword = ({ error }) => {
+const ResetPassword = ({ error, baseUrl }) => {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
@@ -24,7 +24,7 @@ const ResetPassword = ({ error }) => {
         <div className="mx-auto w-50 p-2 mt-5">
           <h1>Reset Password</h1>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Form id="resetPasswordForm" method="post" action="http://localhost:4000/reset-password">
+          <Form id="resetPasswordForm" method="post" action={`${baseUrl}/reset-password`}>
             <Form.Group as={Row}>
               <Col>
                 <Form.Label htmlFor="email">Password: </Form.Label>
