@@ -8,8 +8,8 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy
 const baseUrl = require("../services/getBaseUrl")
 
 const facebookCreds = {
-  clientID: process.env.FACEBOOK_APP_ID,
-  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  clientID: process.env.FB_APP_ID,
+  clientSecret: process.env.FB_APP_SECRET,
   callbackURL: `${baseUrl}/auth/facebook/project-explorer`,
   profileFields: ["id", "first_name", "last_name", "emails"],
 }
