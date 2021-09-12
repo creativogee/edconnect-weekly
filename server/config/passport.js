@@ -12,17 +12,12 @@ const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
 
 const baseUrl = require("../services/getBaseUrl")
 
+//* Facebook Strategy
 const facebookCreds = {
   clientID: FACEBOOK_APP_ID,
   clientSecret: FACEBOOK_APP_SECRET,
   callbackURL: `${baseUrl}/auth/facebook/project-explorer`,
   profileFields: ["id", "first_name", "last_name", "emails"],
-}
-
-const googleCreds = {
-  clientID: GOOGLE_CLIENT_ID,
-  clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: `${baseUrl}/auth/google/project-explorer`,
 }
 
 const facebookVerify = async (accessToken, refreshToken, profile, done) => {
@@ -48,6 +43,16 @@ const facebookVerify = async (accessToken, refreshToken, profile, done) => {
     const user = (await User.create(body))[1]
     done(null, user)
   }
+}
+
+const facebookStrategy = new FacebookStrategy(facebookCreds, facebookVerify)
+passport.use(facebookStrategy)
+
+//*Google Strategy
+const googleCreds = {
+  clientID: GOOGLE_CLIENT_ID,
+  clientSecret: GOOGLE_CLIENT_SECRET,
+  callbackURL: `${baseUrl}/auth/google/project-explorer`,
 }
 
 const googleVerify = async (accessToken, refreshToken, profile, done) => {
@@ -80,10 +85,7 @@ const googleVerify = async (accessToken, refreshToken, profile, done) => {
   }
 }
 
-const facebookStrategy = new FacebookStrategy(facebookCreds, facebookVerify)
 const googleStrategy = new GoogleStrategy(googleCreds, googleVerify)
-
-passport.use(facebookStrategy)
 passport.use(googleStrategy)
 
 //saves the user id to the session

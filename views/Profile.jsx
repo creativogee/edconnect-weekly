@@ -194,6 +194,7 @@ const Profile = ({ user, programs, graduationYears, succ, oldUser, yikes }) => {
                 className=" border p-1"
               />
             </Form.Group>
+
             <Button variant="primary" type="submit">
               Update Profile
             </Button>
