@@ -87,7 +87,7 @@ router.post("/forgot-password", async (req, res) => {
     if (user) {
       //generates a token that expires after 5 minutes
       const token = jwt.sign({ _id: user._id }, process.env.RESET_PASSWORD_SECRET, {
-        expiresIn: "5m",
+        expiresIn: "24h",
       })
       await User.updateUserToken(user._id, token)
       await sendEmail(email, token)
