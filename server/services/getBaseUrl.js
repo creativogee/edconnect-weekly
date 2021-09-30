@@ -1,3 +1,3 @@
-require("dotenv").config()
-const baseUrl = process.env.BASE_URL ?? `http://localhost:${process.env.PORT}`
-module.exports = baseUrl
+const { config } = require('../config/env');
+const baseUrl = config.baseUrl ?? `http://localhost:${config.port}`;
+module.exports = baseUrl;

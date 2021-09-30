@@ -1,0 +1,12 @@
+exports.userSignUpGet = require('./user-signup-get-handler');
+exports.userSignUpPost = require('./user-signup-post-handler');
+exports.userLoginGet = require('./user-login-get-handler');
+exports.userLoginPost = require('./user-login-post-handler');
+exports.userForgotPasswordGet = require('./user-forgot-password-get-handler');
+exports.userForgotPasswordPost = require('./user-forgot-password-post-handler');
+exports.userResetPasswordGet = require('./user-reset-password-get-handler');
+exports.userResetPasswordPost = require('./user-reset-password-post-handler');
+exports.userProfileGet = require('./user-profile-get-handler');
+exports.userProfilePost = require('./user-profile-post-handler');
+exports.userChangePasswordPost = require('./user-change-password-post-handler');
+exports.userLogoutGet = require('./user-logout-get-handler');

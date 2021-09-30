@@ -1,25 +1,14 @@
-const express = require("express")
-const router = express.Router()
-const project = require("../services/project")
-const store = require("store")
-const User = require("../services/user")
+const project = require('../services/project');
+const User = require('../services/user');
 
-router.get("/", async (req, res) => {
-  const data = await project.getAll()
-  const user = await User.getById(req.session?.user?._id)
+const dashboard = async (req, res) => {
+  const data = await project.getAll();
+  const user = await User.getById(req.session?.user?._id);
   if (user) {
-    res.render("Home", { data, user })
+    res.render('Home', { data, user });
   } else {
-    res.render("Home", { data })
+    res.render('Home', { data });
   }
-})
+};
 
-router.get("/logout", (req, res) => {
-  req.session.destroy()
-  //deletes the upadte JSON from the local storage
-  store.clearAll()
-
-  res.redirect("/")
-})
-
-module.exports = router
+module.exports = { dashboard };

@@ -1,0 +1,9 @@
+exports.cors = require('./cors');
+exports.flash = require('./flash');
+exports.upload = require('./upload');
+exports.session = require('./express-session');
+exports.statics = require('./static-files');
+exports.json = require('./body-parser').json;
+exports.urlencoded = require('./body-parser').urlencoded;
+exports.passportInit = require('./passport').passportInit;
+exports.passportSession = require('./passport').passportSession;

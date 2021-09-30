@@ -1,0 +1,1 @@
+exports.setUpMiddlewares = require('./middlewares');
