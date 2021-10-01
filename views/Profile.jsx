@@ -63,7 +63,6 @@ const Profile = ({ user, programs, graduationYears, succ, oldUser, changePass })
 
   const handleFileInput = (e) => {
     const { name, value } = e.target;
-    console.log(value);
     var ext = value.match(/\.([^\.]+)$/)[1];
     switch (ext) {
       case 'jpg':

@@ -1,8 +1,8 @@
-import React, { useState } from "react"
-import { Button, Card, Col, Container, Form, Row, Image } from "react-bootstrap"
-import Layout from "./shared/Layout"
+import React, { useState } from 'react';
+import { Button, Card, Col, Container, Form, Row, Image } from 'react-bootstrap';
+import Layout from './shared/Layout';
 
-const Project = ({ project, user, creator, authorImage }) => {
+const Project = ({ project, user, authorName, authorImage }) => {
   return (
     <Layout user={user}>
       <div className="mx-auto mt-5">
@@ -18,11 +18,11 @@ const Project = ({ project, user, creator, authorImage }) => {
               <Image
                 src={`${authorImage}`}
                 roundedCircle
-                style={{ height: 3 + "rem", width: 3 + "rem", marginRight: 10 + "px" }}
+                style={{ height: 3 + 'rem', width: 3 + 'rem', marginRight: 10 + 'px' }}
               ></Image>
               <div className="d-flex flex-column">
                 <span>Created by: </span>
-                <span>{creator?.firstname + " " + creator?.lastname} </span>
+                <span>{authorName?.firstname + ' ' + authorName?.lastname} </span>
               </div>
             </Col>
             <Col className="d-flex flex-column">
@@ -109,7 +109,7 @@ const Project = ({ project, user, creator, authorImage }) => {
                           {index > 0 ? <hr /> : null}
                           <p className="pr-3 pl-3">{author}</p>
                         </div>
-                      )
+                      );
                     })}
                   </Card.Text>
                 </Card.Body>
@@ -138,7 +138,7 @@ const Project = ({ project, user, creator, authorImage }) => {
         </Container>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Project
+export default Project;
