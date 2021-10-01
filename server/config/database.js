@@ -1,5 +1,4 @@
 //Refactored and modularized the database config for reusability
-
 const { config } = require('./env');
 const mongoose = require('mongoose');
 mongoose.set('bufferCommands', false);
