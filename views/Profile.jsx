@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from './shared/Layout';
 import { Alert, Button, Col, Form, Row, Nav } from 'react-bootstrap';
 
-const Profile = ({ user, programs, graduationYears, succ, oldUser, changePass }) => {
+const Profile = ({ user, programs, graduationYears, succ, changePass }) => {
   const [firstName, setFirstName] = useState(user?.firstname);
   const [lastName, setLastName] = useState(user?.lastname);
   const [email, setEmail] = useState(user?.email);
@@ -78,7 +78,7 @@ const Profile = ({ user, programs, graduationYears, succ, oldUser, changePass })
   return (
     <Layout user={user ? user : null}>
       <main>
-        {!oldUser && !(matricNumber && graduationYear && program) && (
+        {!(matricNumber && graduationYear && program) && (
           <Alert variant="warning" className="text-center">
             Please complete your registration!
           </Alert>
