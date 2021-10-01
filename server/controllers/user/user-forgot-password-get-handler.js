@@ -1,5 +1,8 @@
+const { localStorage } = require('../../services/storage');
+
 const userForgotPasswordGet = async (req, res) => {
-  res.render('ForgotPassword');
+  const forgotPasswordError = localStorage.getOne('forgotPasswordError');
+  res.render('ForgotPassword', { forgotPasswordError });
 };
 
 module.exports = userForgotPasswordGet;

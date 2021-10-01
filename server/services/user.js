@@ -1,8 +1,8 @@
 // imports
-const mongoose = require("mongoose")
-const User = require("../models/user")
-const helper = require("../models/mongo_helper")
-const crypto = require("crypto")
+const mongoose = require('mongoose');
+const User = require('../models/user');
+const helper = require('../models/mongo_helper');
+const crypto = require('crypto');
 
 /* Creates new user */
 const create = async ({
@@ -27,58 +27,70 @@ const create = async ({
       graduationYear,
       facebookId,
       googleId,
-    })
-    user.setPassword(password)
+    });
+    user.setPassword(password);
 
-    const newUser = await user.save()
+    const newUser = await user.save();
 
     if (newUser) {
-      return [true, user]
+      return [true, user];
     }
   } catch (e) {
-    return [false, helper.translateError(e)]
+    return [false, helper.translateError(e)];
   }
-}
+};
 
-const deleteUser = async obj => {
+const deleteUser = async (obj) => {
   try {
-    return await User.deleteOne({ ...obj })
+    return await User.deleteOne({ ...obj });
   } catch (e) {
-    return [false, ["Something went wrong, please try again"]]
+    return [false, ['Something went wrong, please try again']];
   }
-}
+};
 
 /* Authenticate a user */
 const authenticate = async (email, password) => {
   try {
-    let validUser, validPassword
+    let validUser, validPassword;
 
-    validUser = await User.findOne({ email })
+    validUser = await User.findOne(
+      { email },
+      {
+        __v: 0,
+        resetPasswordToken: 0,
+        createdAt: 0,
+        updatedAt: 0,
+        facebookId: 0,
+      },
+    );
 
     if (!validUser) {
-      throw "UserLoginError"
+      throw 'UserLoginError';
     }
 
-    validPassword = User.validPassword(validUser, password)
+    validPassword = User.validPassword(validUser, password);
 
-    const isValid = validUser.password === validPassword
+    const isValid = validUser.password === validPassword;
 
     if (!isValid) {
-      throw "UserLoginError"
+      throw 'UserLoginError';
     }
+    const user = validUser.toObject();
+    delete user.salt;
+    delete user.password;
 
-    return [true, validUser]
+    return [true, user];
   } catch (e) {
-    if (e === "UserLoginError") {
-      return [false, ["Invalid email/password"]]
+    if (e === 'UserLoginError') {
+      return [false, ['Invalid email/password']];
     }
   }
-}
+};
 
 /* Return user with specified id */
-const getById = async id => {
-  return await User.findById(id)
-}
+const getById = async (id) => {
+  return await User.findById(id);
+};
 
 /**
  *  Checks if a user with the provider id exist in the DB
@@ -87,24 +99,24 @@ const getById = async id => {
  * @returns user object
  */
 const findByProviderId = async (provider, _id) => {
-  if (provider === "facebook") {
-    return await User.find({ facebookId: _id })
+  if (provider === 'facebook') {
+    return await User.find({ facebookId: _id });
   }
 
-  if (provider === "google") {
-    return await User.find({ googleId: _id })
+  if (provider === 'google') {
+    return await User.find({ googleId: _id });
   }
-}
+};
 
 /* Return all users */
 const getAll = async () => {
-  return await User.find()
-}
+  return await User.find();
+};
 
-const getUser = async obj => {
-  const user = await User.findOne({ ...obj })
-  return user
-}
+const getUser = async (obj) => {
+  const user = await User.findOne({ ...obj });
+  return user;
+};
 
 /**
  * Adds a reset password token to a specified user's document
@@ -113,14 +125,14 @@ const getUser = async obj => {
  * @returns
  */
 const updateUserToken = async (id, token) => {
-  const user = await User.findById(id)
-  return await user.updateOne({ resetPasswordToken: token })
-}
+  const user = await User.findById(id);
+  return await user.updateOne({ resetPasswordToken: token });
+};
 
 const updateUser = async (id, data) => {
-  const user = await User.findById(id)
-  return await user.updateOne({ ...data })
-}
+  const user = await User.findById(id);
+  return await user.updateOne({ ...data });
+};
 
 /**
  * Updates the user's password with the new one
@@ -128,11 +140,11 @@ const updateUser = async (id, data) => {
  * @param {string} pwd
  */
 const updatePassword = async (id, pwd) => {
-  const user = await User.findById(id)
-  await user.setPassword(pwd)
-  user.resetPasswordToken = ""
-  user.save()
-}
+  const user = await User.findById(id);
+  await user.setPassword(pwd);
+  user.resetPasswordToken = '';
+  user.save();
+};
 
 /**
  * Compare provided password with the hashed password from the DB
@@ -141,10 +153,18 @@ const updatePassword = async (id, pwd) => {
  * @returns boolean
  */
 const confirmPassword = async (id, pwd) => {
-  const user = await User.findById(id)
-  const newHash = crypto.pbkdf2Sync(pwd, user.salt, 1000, 64, "sha512").toString("hex")
+  const user = await User.findById(id);
+  const newHash = crypto.pbkdf2Sync(pwd, user.salt, 1000, 64, 'sha512').toString('hex');
   return user.password === newHash
-}
+    ? { success: true, message: 'Password change succcessfull' }
+    : { success: false, message: 'Current password is incorrect' };
+};
+
+const comparePassword = async (passwordOne, passwordTwo) => {
+  return passwordOne === passwordTwo
+    ? { success: true }
+    : { success: false, message: "Passwords don't match" };
+};
 
 module.exports = {
   create,
@@ -158,4 +178,5 @@ module.exports = {
   updateUserToken,
   updatePassword,
   confirmPassword,
-}
+  comparePassword,
+};

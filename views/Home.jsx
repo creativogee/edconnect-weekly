@@ -1,6 +1,6 @@
-import React, { useState } from "react"
-import { Jumbotron, Button, Container, Row, Col, Card } from "react-bootstrap"
-import Layout from "./shared/Layout"
+import React, { useState } from 'react';
+import { Jumbotron, Button, Container, Row, Col, Card } from 'react-bootstrap';
+import Layout from './shared/Layout';
 
 const Home = ({ data, user }) => {
   return (
@@ -32,10 +32,10 @@ const Home = ({ data, user }) => {
                     <Card.Title>
                       <a href={`/project/${project._id}`}>{project.name}</a>
                     </Card.Title>
-                    <Card.Text>{project.authors.join(", ")}</Card.Text>
+                    <Card.Text>{project.authors.join(', ')}</Card.Text>
                     <Card.Text>{project.abstract}</Card.Text>
                     <Card.Text>
-                      <a href={"#"}>{project.tags.map(tag => `#${tag}`)}</a>
+                      <a href={'#'}>{project.tags.map((tag) => `${tag}`)}</a>
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -45,7 +45,7 @@ const Home = ({ data, user }) => {
         </Container>
       </main>
     </Layout>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

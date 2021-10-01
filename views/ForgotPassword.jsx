@@ -1,29 +1,31 @@
-import React, { useState, useEffect } from "react"
-import { Alert, Button, Form, Row, Col, Nav, Modal } from "react-bootstrap"
-import Layout from "./shared/Layout"
+import React, { useState, useEffect } from 'react';
+import { Alert, Button, Form, Row, Col, Nav, Modal } from 'react-bootstrap';
+import Layout from './shared/Layout';
 
-const ForgotPassword = ({ userEmail, error }) => {
-  const [email, setEmail] = useState("")
-  const [show, setShow] = useState(false)
+const ForgotPassword = ({ userEmail, error, forgotPasswordError }) => {
+  const [email, setEmail] = useState('');
+  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-  const handleInput = e => {
-    const { name, value } = e.target
+  const handleInput = (e) => {
+    const { name, value } = e.target;
     switch (name) {
-      case "email":
-        setEmail(value)
-        break
+      case 'email':
+        setEmail(value);
+        break;
       default:
     }
-  }
+  };
 
   useEffect(() => {
     if (userEmail && !error) {
-      handleShow()
+      handleShow();
     }
-  }, [])
+
+    setEmail(forgotPasswordError);
+  }, []);
 
   return (
     <Layout>
@@ -74,7 +76,7 @@ const ForgotPassword = ({ userEmail, error }) => {
         </div>
       </main>
     </Layout>
-  )
-}
+  );
+};
 
-export default ForgotPassword
+export default ForgotPassword;

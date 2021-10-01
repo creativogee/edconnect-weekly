@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react"
-import Layout from "./shared/Layout"
-import { Alert, Button, Col, Form, Row, Nav } from "react-bootstrap"
+import React, { useState, useEffect } from 'react';
+import Layout from './shared/Layout';
+import { Alert, Button, Col, Form, Row, Nav } from 'react-bootstrap';
 
-const Profile = ({ user, programs, graduationYears, succ, oldUser, yikes }) => {
-  const [firstName, setFirstName] = useState(user?.firstname)
-  const [lastName, setLastName] = useState(user?.lastname)
-  const [email, setEmail] = useState(user?.email)
-  const [currentPassword, setCurrentPassword] = useState("")
-  const [newPassword, setNewPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [matricNumber, setMatricNmber] = useState(user?.matricNumber)
-  const [program, setProgram] = useState(user?.program)
-  const [graduationYear, setGraduationYear] = useState(user?.graduationYear)
-  const [displayInfo, setDisplayInfo] = useState({})
-  const [profileImage, setProfileImage] = useState("")
+const Profile = ({ user, programs, graduationYears, succ, oldUser, changePass }) => {
+  const [firstName, setFirstName] = useState(user?.firstname);
+  const [lastName, setLastName] = useState(user?.lastname);
+  const [email, setEmail] = useState(user?.email);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [matricNumber, setMatricNmber] = useState(user?.matricNumber);
+  const [program, setProgram] = useState(user?.program);
+  const [graduationYear, setGraduationYear] = useState(user?.graduationYear);
+  const [displayInfo, setDisplayInfo] = useState({});
+  const [profileImage, setProfileImage] = useState('');
+  const [imageFormatError, setImageFormatError] = useState(false);
 
   useEffect(() => {
     setDisplayInfo({
@@ -23,45 +24,57 @@ const Profile = ({ user, programs, graduationYears, succ, oldUser, yikes }) => {
       program,
       matricNumber,
       graduationYear,
-    })
-  }, [])
+    });
+  }, []);
 
-  const handleInput = e => {
-    const { name, value } = e.target
+  const handleInput = (e) => {
+    const { name, value } = e.target;
     switch (name) {
-      case "firstName":
-        setFirstName(value)
-        break
-      case "lastName":
-        setLastName(value)
-        break
-      case "email":
-        setEmail(value)
-        break
-      case "currentPassword":
-        setCurrentPassword(value)
-        break
-      case "newPassword":
-        setNewPassword(value)
-        break
-      case "confirmPassword":
-        setConfirmPassword(value)
-        break
-      case "program":
-        setProgram(value)
-        break
-      case "matricNumber":
-        setMatricNmber(value)
-        break
-      case "graduationYear":
-        setGraduationYear(value)
-        break
-      case "profileImage":
-        setProfileImage(value)
-        break
+      case 'firstName':
+        setFirstName(value);
+        break;
+      case 'lastName':
+        setLastName(value);
+        break;
+      case 'email':
+        setEmail(value);
+        break;
+      case 'currentPassword':
+        setCurrentPassword(value);
+        break;
+      case 'newPassword':
+        setNewPassword(value);
+        break;
+      case 'confirmPassword':
+        setConfirmPassword(value);
+        break;
+      case 'program':
+        setProgram(value);
+        break;
+      case 'matricNumber':
+        setMatricNmber(value);
+        break;
+      case 'graduationYear':
+        setGraduationYear(value);
+        break;
       default:
     }
-  }
+  };
+
+  const handleFileInput = (e) => {
+    const { name, value } = e.target;
+    console.log(value);
+    var ext = value.match(/\.([^\.]+)$/)[1];
+    switch (ext) {
+      case 'jpg':
+      case 'png':
+        setImageFormatError(false);
+        setProfileImage(value);
+        break;
+      default:
+        setImageFormatError(true);
+    }
+  };
 
   return (
     <Layout user={user ? user : null}>
@@ -73,7 +86,7 @@ const Profile = ({ user, programs, graduationYears, succ, oldUser, yikes }) => {
         )}
         <div className="mx-auto w-50 p-2 mt-5">
           <div className="d-flex align-items-end mb-2">
-            <h4 className="mr-2">{displayInfo.firstName + " " + displayInfo.lastName}</h4>
+            <h4 className="mr-2">{displayInfo.firstName + ' ' + displayInfo.lastName}</h4>
             <h6 className="text-secondary ">{displayInfo.email}</h6>
           </div>
           <Form
@@ -86,15 +99,15 @@ const Profile = ({ user, programs, graduationYears, succ, oldUser, yikes }) => {
             <Row className="bg-light d-flex justify-space-between mb-5 p-2">
               <Col className="d-flex flex-column">
                 <span>Program</span>
-                <span>{displayInfo.program || "-"}</span>
+                <span>{displayInfo.program || '-'}</span>
               </Col>
               <Col className="d-flex flex-column">
                 <span>Matriculation</span>
-                <span>{displayInfo.matricNumber || "-"}</span>
+                <span>{displayInfo.matricNumber || '-'}</span>
               </Col>
               <Col className="d-flex flex-column">
                 <span>Graduation year</span>
-                <span>{displayInfo.graduationYear || "-"}</span>
+                <span>{displayInfo.graduationYear || '-'}</span>
               </Col>
             </Row>
             {succ && <Alert variant="info">{succ}</Alert>}
@@ -147,7 +160,7 @@ const Profile = ({ user, programs, graduationYears, succ, oldUser, yikes }) => {
                   onChange={handleInput}
                 >
                   <option>Select Program</option>
-                  {programs.map(program => (
+                  {programs.map((program) => (
                     <option key={program}>{program}</option>
                   ))}
                 </Form.Control>
@@ -190,9 +203,10 @@ const Profile = ({ user, programs, graduationYears, succ, oldUser, yikes }) => {
                 type="file"
                 name="profileImage"
                 value={profileImage}
-                onChange={handleInput}
+                onChange={handleFileInput}
                 className=" border p-1"
               />
+              {imageFormatError ? 'File format is not allowed, must be jpg/png' : null}
             </Form.Group>
 
             <Button variant="primary" type="submit">
@@ -201,9 +215,12 @@ const Profile = ({ user, programs, graduationYears, succ, oldUser, yikes }) => {
           </Form>
 
           <Form id="changePassword" method="post" action="change-password">
-            {yikes && (
-              <Alert variant="danger" className="d-flex justify-content-between">
-                {yikes}
+            {changePass && (
+              <Alert
+                variant={changePass?.success ? 'info' : 'danger'}
+                className="d-flex justify-content-between"
+              >
+                {changePass?.message}
               </Alert>
             )}
             <Form.Group as={Row}>
@@ -246,7 +263,7 @@ const Profile = ({ user, programs, graduationYears, succ, oldUser, yikes }) => {
             <Button variant="primary" type="submit">
               Change Password
             </Button>
-            {yikes && (
+            {changePass && !changePass?.success && (
               <Nav.Link className="d-inline" href="/forgot-password">
                 Forgot Password?
               </Nav.Link>
@@ -255,7 +272,7 @@ const Profile = ({ user, programs, graduationYears, succ, oldUser, yikes }) => {
         </div>
       </main>
     </Layout>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

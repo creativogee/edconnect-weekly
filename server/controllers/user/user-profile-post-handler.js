@@ -1,4 +1,7 @@
 const User = require('../../services/user');
+const { getGradYears, getPrograms } = require('../../services/school');
+const programs = getPrograms();
+const graduationYears = getGradYears();
 
 const userProfilePost = async (req, res) => {
   try {

@@ -1,5 +1,6 @@
 const { Router } = require('express');
-const { upload } = require('../middlewares');
+const { File } = require('../middlewares');
+const profileImage = new File('profileImage');
 
 const router = Router();
 
@@ -35,7 +36,7 @@ router.route('/reset-password/:token').get(userResetPasswordGet);
 router.route('/reset-password').post(userResetPasswordPost);
 
 //user profile routes
-router.route('/profile').get(userProfileGet).post(upload.to('profileImage'), userProfilePost);
+router.route('/profile').get(userProfileGet).post(profileImage.upload, userProfilePost);
 
 //user change password
 router.route('/change-password').post(userChangePasswordPost);

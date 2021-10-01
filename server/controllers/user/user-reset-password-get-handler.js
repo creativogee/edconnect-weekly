@@ -5,7 +5,7 @@ const userResetPasswordGet = (req, res) => {
   const token = req.params.token;
   //stored in local storage in case tab is closed
   //token expires anyway
-  localStorage.create('rpt', token);
+  localStorage.setOne({ rpt: token });
   res.render('ResetPassword', { baseUrl });
 };
 

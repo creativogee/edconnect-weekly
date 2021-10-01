@@ -1,10 +1,14 @@
 const { config } = require('../../config/env');
 const User = require('../../services/user');
 const { sendEmail } = require('../../services/mailer');
+const jwt = require('jsonwebtoken');
+const { localStorage } = require('../../services/storage');
 
 const userForgotPasswordPost = async (req, res) => {
   try {
     const email = req.body.email;
+    localStorage.setOne({ forgotPasswordError: email });
+
     const user = await User.getUser({ email });
     if (!user) {
       res.render('ForgotPassword', { error: 'User does not exist', userEmail: email });

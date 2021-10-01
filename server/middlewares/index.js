@@ -1,6 +1,6 @@
 exports.cors = require('./cors');
 exports.flash = require('./flash');
-exports.upload = require('./upload');
+exports.File = require('./fileUpload');
 exports.session = require('./express-session');
 exports.statics = require('./static-files');
 exports.json = require('./body-parser').json;
