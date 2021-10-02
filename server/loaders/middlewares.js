@@ -11,6 +11,7 @@ const loggerInstance = require('./logger');
 
 const setUpMiddlewares = (app) => {
   require('../config/passport');
+
   app.use(cors);
   app.use(flash);
   app.use(session);

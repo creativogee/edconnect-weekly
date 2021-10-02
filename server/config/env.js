@@ -17,5 +17,6 @@ module.exports = {
     refresh_token: process.env.REFRESH_TOKEN,
     baseUrl: process.env.BASE_URL,
     reset_password_secret: process.env.RESET_PASSWORD_SECRET,
+    session_secret: process.env.SESSION_SECRET,
   },
 };
