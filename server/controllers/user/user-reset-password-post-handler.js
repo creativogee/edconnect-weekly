@@ -15,7 +15,7 @@ const userResetPasswordPost = async (req, res) => {
       throw Error('Passwords do not match');
     }
 
-    const token = storage.getOne('rpt');
+    const token = localStorage.getOne('rpt');
     if (token) {
       const decoded = jwt.verify(token, config.reset_password_secret);
       User.updatePassword(decoded._id, password);
