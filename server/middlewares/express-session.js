@@ -1,11 +1,11 @@
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-const config = require('../config/env');
+const { config } = require('../config/env');
 
 //created a mongoDB collection to be used as session store
 const store = new MongoDBStore({
   uri: config.mongoUri,
-  collection: 'mySessions',
+  collection: 'project-explorer-sessions',
 });
 
 module.exports = session({
