@@ -1,7 +1,6 @@
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const { config } = require('../config/env');
-console.log('config:', config.mongoUri);
 
 //created a mongoDB collection to be used as session store
 const store = new MongoDBStore({
@@ -9,7 +8,7 @@ const store = new MongoDBStore({
   collection: 'project-explorer-sessions',
 });
 
-module.exports = session({
+const sessionInstance = session({
   secret: 'secret',
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -18,3 +17,5 @@ module.exports = session({
   resave: true,
   saveUninitialized: false,
 });
+
+module.exports = sessionInstance;
