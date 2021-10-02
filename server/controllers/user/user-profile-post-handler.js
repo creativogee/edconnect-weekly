@@ -1,4 +1,5 @@
 const User = require('../../services/user');
+const Project = require('../../services/project');
 const { getGradYears, getPrograms } = require('../../services/school');
 const programs = getPrograms();
 const graduationYears = getGradYears();
@@ -38,6 +39,8 @@ const userProfilePost = async (req, res) => {
 
     //update user's document with the fields defined in the user object
     await User.updateUser(id, user);
+    //update author image for
+    await Project.update({ createdBy: id }, { authorImage: user.profileImage });
 
     const succ = 'Updated Successful!';
     res.render('Profile', { user, programs, graduationYears, succ });

@@ -12,6 +12,7 @@ const projectGet = async (req, res) => {
   if (!project) {
     res.redirect('/');
   }
+
   if (req.session.user) {
     const user = req.session.user;
     res.render('Project', { project, user, authorName, authorImage });

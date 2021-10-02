@@ -8,8 +8,6 @@ const userChangePasswordPost = async (req, res) => {
     const compare = await User.comparePassword(req.body.newPassword, req.body.confirmPassword);
     const response = !compare?.success ? compare : confirm;
 
-    console.log('response:', response);
-
     req.flash('changePassRes', JSON.stringify(response));
     if (!response?.success) {
       res.redirect(303, '/profile');
