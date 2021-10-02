@@ -1,4 +1,4 @@
-const { config } = require('../config/env');
+require('dotenv').config();
 import regeneratorRuntime from 'regenerator-runtime';
 const User = require('../services/user');
 const { userOne, connectDB, disconnectDB } = require('./fixtures/db');
