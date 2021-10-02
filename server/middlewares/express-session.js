@@ -9,7 +9,9 @@ const store = new MongoDBStore(
     collection: 'project-explorer-sessions',
   },
   (e) => {
-    console.log('Express session error');
+    if (e) {
+      console.log('Express session error');
+    }
   },
 );
 
