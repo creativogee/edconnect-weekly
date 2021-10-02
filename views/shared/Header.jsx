@@ -1,5 +1,5 @@
-import React from "react"
-import { Form, Button, Nav, Navbar, Image } from "react-bootstrap"
+import React from 'react';
+import { Form, Button, Nav, Navbar, Image } from 'react-bootstrap';
 
 const Header = ({ user }) => {
   return (
@@ -28,17 +28,17 @@ const Header = ({ user }) => {
           <Image
             src={`${user.profileImage}`}
             roundedCircle
-            style={{ height: 3 + "rem", width: 3 + "rem" }}
+            style={{ height: 3 + 'rem', width: 3 + 'rem' }}
           ></Image>
         </Nav>
       ) : (
         <Nav className="justify-content-end">
           <Nav.Link href="/signup">Sign up</Nav.Link>
-          <Nav.Link href="/Login">Login</Nav.Link>
+          <Nav.Link href="/login">Login</Nav.Link>
         </Nav>
       )}
     </Navbar>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

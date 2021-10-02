@@ -6,6 +6,7 @@ const {
   urlencoded,
   passportInit,
   passportSession,
+  statics,
 } = require('../middlewares');
 const loggerInstance = require('./logger');
 
@@ -19,6 +20,7 @@ const setUpMiddlewares = (app) => {
   app.use(urlencoded);
   app.use(passportInit);
   app.use(passportSession);
+  app.use(statics);
 
   loggerInstance;
 };
