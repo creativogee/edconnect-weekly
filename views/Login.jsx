@@ -1,23 +1,23 @@
-import React, { useState } from "react"
-import { Alert, Button, Form, Row, Col, Nav } from "react-bootstrap"
-import Layout from "./shared/Layout"
+import React, { useState } from 'react';
+import { Alert, Button, Form, Row, Col, Nav } from 'react-bootstrap';
+import Layout from './shared/Layout';
 
-const Login = ({ error, user }) => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+const Login = ({ error, user, resetSuccess }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleInput = e => {
-    const { name, value } = e.target
+  const handleInput = (e) => {
+    const { name, value } = e.target;
     switch (name) {
-      case "email":
-        setEmail(value)
-        break
-      case "password":
-        setPassword(value)
-        break
+      case 'email':
+        setEmail(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
       default:
     }
-  }
+  };
 
   return (
     <Layout user={user}>
@@ -25,7 +25,11 @@ const Login = ({ error, user }) => {
         <div className="mx-auto w-50 p-2 mt-5">
           <h1>Login</h1>
           <Form id="loginForm" method="post" action="login">
-            {error && <Alert variant="danger">Invalid Email/Password</Alert>}
+            {(error || resetSuccess) && (
+              <Alert variant={error ? 'danger' : 'info'}>
+                {resetSuccess || 'Invalid Email/Password'}
+              </Alert>
+            )}
             <Form.Group as={Row}>
               <Col>
                 <Form.Label htmlFor="email">Email Address: </Form.Label>
@@ -71,7 +75,7 @@ const Login = ({ error, user }) => {
         </div>
       </main>
     </Layout>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

@@ -14,9 +14,7 @@ const mongoDefault = {
 const connectDB = async () => {
   try {
     await mongoose.connect(conn, mongoDefault);
-    if (config.node_env == 'dev') {
-      console.log('Database connection successful');
-    }
+    console.log('Database connection successful');
   } catch (e) {
     console.log(e);
     console.log('Database connection failed');

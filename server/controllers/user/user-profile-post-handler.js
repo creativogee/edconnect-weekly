@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const User = require('../../services/user');
 const Project = require('../../services/project');
 const { getGradYears, getPrograms } = require('../../services/school');
@@ -8,15 +9,20 @@ const userProfilePost = async (req, res) => {
   try {
     const id = req.session.user._id;
 
-    const { firstName, lastName } = req.body;
+    const { firstName, lastName, matricNumber, email } = req.body;
     let graduationYear, program;
 
     //Handling lack of selection from the client
-    if (graduationYear === 'Select Graduation Year') {
+    if (req.body.graduationYear === 'Select Graduation Year') {
       graduationYear = '';
+    } else {
+      graduationYear = req.body.graduationYear;
     }
-    if (program === 'Select Program') {
+
+    if (req.body.program === 'Select Program') {
       program = '';
+    } else {
+      program = req.body.program;
     }
 
     const oldUser = await User.getById(id);
@@ -26,7 +32,8 @@ const userProfilePost = async (req, res) => {
       firstname: firstName,
       lastname: lastName,
       profileImage: oldUser.profileImage,
-      ...req.body,
+      matricNumber,
+      email,
     };
 
     if (
@@ -37,13 +44,30 @@ const userProfilePost = async (req, res) => {
       user.profileImage = req.file.path;
     }
 
-    //update user's document with the fields defined in the user object
-    await User.updateUser(id, user);
-    //update author image for
-    await Project.update({ createdBy: id }, { authorImage: user.profileImage });
+    const checkUser = oldUser.toObject();
 
-    const succ = 'Updated Successful!';
-    res.render('Profile', { user, programs, graduationYears, succ });
+    delete checkUser.resetPasswordToken;
+    delete checkUser._id;
+    delete checkUser.facebookId;
+    delete checkUser.salt;
+    delete checkUser.__v;
+    delete checkUser.createdAt;
+    delete checkUser.updatedAt;
+    delete checkUser.password;
+
+    let succ, err;
+
+    if (_.isEqual(user, checkUser)) {
+      err = 'Nothing to update!';
+    } else {
+      //update user's document with the fields defined in the user object
+      await User.updateUser(id, user);
+      //update author image for
+      await Project.update({ createdBy: id }, { authorImage: user.profileImage });
+      succ = 'Updated successful!';
+    }
+
+    res.render('Profile', { user, programs, graduationYears, succ, err });
   } catch (e) {
     console.log(e.message);
   }

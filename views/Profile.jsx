@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from './shared/Layout';
 import { Alert, Button, Col, Form, Row, Nav } from 'react-bootstrap';
 
-const Profile = ({ user, programs, graduationYears, succ, changePass }) => {
+const Profile = ({ user, programs, graduationYears, succ, changePass, err }) => {
   const [firstName, setFirstName] = useState(user?.firstname);
   const [lastName, setLastName] = useState(user?.lastname);
   const [email, setEmail] = useState(user?.email);
@@ -109,7 +109,7 @@ const Profile = ({ user, programs, graduationYears, succ, changePass }) => {
                 <span>{displayInfo.graduationYear || '-'}</span>
               </Col>
             </Row>
-            {succ && <Alert variant="info">{succ}</Alert>}
+            {(succ || err) && <Alert variant={succ ? 'info' : 'warning'}>{succ || err}</Alert>}
             <Form.Group as={Row}>
               <Col>
                 <Form.Label htmlFor="firstname">First Name: </Form.Label>
